@@ -1,0 +1,27 @@
+﻿using BLL.Interfaces;
+using BLL.Mapper;
+using BLL.Services;
+using DAL.Interfaces;
+using DAL.Repositories;
+
+namespace CareNestAPI
+{
+    public static class DependencyInjection
+    {
+        public static IServiceCollection Services (this IServiceCollection services)
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IAccountRepository), typeof(AccountRepository));
+
+            services.AddScoped(typeof(IAccountService), typeof(AccountService));
+            services.AddScoped(typeof(ITokenService), typeof(TokenService));
+            services.AddScoped(typeof(IEmailService), typeof(EmailService));
+
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+
+            return services;
+        }
+    }
+}

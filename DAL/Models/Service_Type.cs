@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAL.Models
+{
+    public class Service_Type : BaseEntity
+    {
+        [Key]
+        public Guid id { get; set; } = Guid.NewGuid();
+        public string? name { get; set; }
+        public string? description { get; set; }
+        public string? img_url { get; set; }
+        public bool is_public { get; set; }
+        
+
+        public IEnumerable<Service> service { get; set; }
+        public IEnumerable<Room> room { get; set; }
+    }
+}
