@@ -15,13 +15,15 @@ namespace DAL.Repositories
         private readonly IService_TypeRepository _service_TypeRepository;
         private readonly IShopRepository _shopRepository;
         private readonly IStaffRepository _staffRepository;
+        private readonly ICustomerRepository _customerRepository;
 
         public UnitOfWork(ApplicationDbContext Context,
             IAccountRepository AccountRepository,
             IPet_TypeRepository Pet_TypeRepository,
             IService_TypeRepository service_TypeRepository,
             IShopRepository shopRepository,
-            IStaffRepository staffRepository)
+            IStaffRepository staffRepository,
+            ICustomerRepository customerRepository)
         {
             _context = Context;
             _accountRepository = AccountRepository;
@@ -29,6 +31,7 @@ namespace DAL.Repositories
             _service_TypeRepository = service_TypeRepository;
             _shopRepository = shopRepository;
             _staffRepository = staffRepository;
+            _customerRepository = customerRepository;
         }
 
         public IAccountRepository _accountRepo => _accountRepository;
@@ -36,6 +39,7 @@ namespace DAL.Repositories
         public IService_TypeRepository _service_TypeRepo => _service_TypeRepository;
         public IShopRepository _shopRepo => _shopRepository;
         public IStaffRepository _staffRepo => _staffRepository;
+        public ICustomerRepository _customerRepo => _customerRepository;
 
         public async Task<int> SaveChangeAsync()
         {
