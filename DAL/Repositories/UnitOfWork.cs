@@ -20,6 +20,8 @@ namespace DAL.Repositories
         private readonly IServiceRepository _serviceRepository;
         private readonly IAppointmentsRepository _appointmentsRepository;
         private readonly IRatingRepository _ratingRepository;
+        private readonly IService_AppointmentRepository _service_AppointmentRepository;
+        private readonly IRoomRepository _roomRepository;
 
         public UnitOfWork(ApplicationDbContext Context,
             IAccountRepository AccountRepository,
@@ -31,7 +33,9 @@ namespace DAL.Repositories
             ISub_AddressRepository sub_AddressRepository,
             IServiceRepository serviceRepository,
             IAppointmentsRepository appointmentsRepository,
-            IRatingRepository ratingRepository)
+            IRatingRepository ratingRepository,
+            IService_AppointmentRepository service_AppointmentRepository,
+            IRoomRepository roomRepository)
         {
             _context = Context;
             _accountRepository = AccountRepository;
@@ -44,6 +48,8 @@ namespace DAL.Repositories
             _serviceRepository = serviceRepository;
             _appointmentsRepository = appointmentsRepository;
             _ratingRepository = ratingRepository;
+            _service_AppointmentRepository = service_AppointmentRepository;
+            _roomRepository = roomRepository;
         }
 
         public IAccountRepository _accountRepo => _accountRepository;
@@ -56,6 +62,8 @@ namespace DAL.Repositories
         public IServiceRepository _serviceRepo => _serviceRepository;
         public IAppointmentsRepository _appointmentsRepo => _appointmentsRepository;
         public IRatingRepository _ratingRepo => _ratingRepository;
+        public IService_AppointmentRepository _service_AppointmentRepo => _service_AppointmentRepository;
+        public IRoomRepository _roomRepo => _roomRepository;
         public async Task<int> SaveChangeAsync()
         {
             return await _context.SaveChangesAsync();

@@ -1,0 +1,18 @@
+﻿using BOL.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BLL.Interfaces
+{
+    public interface IRoomService
+    {
+        Task<List<RoomDTO>> GetAllAsync();
+        Task<RoomDTO> GetByIdAsync(Guid id);
+        Task<bool> CreateAsync(RoomDTO roomDto);
+        Task<bool> UpdateAsync(RoomDTO roomDto);
+        Task<bool> DeleteAsync(Guid id);
+    }
+}
