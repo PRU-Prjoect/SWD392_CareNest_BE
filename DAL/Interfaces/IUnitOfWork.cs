@@ -17,6 +17,7 @@ namespace DAL.Interfaces
         public ISub_AddressRepository _sub_AddressRepo { get; }
         public IServiceRepository _serviceRepo { get; }
         public IAppointmentsRepository _appointmentsRepo { get; }
+        public IRatingRepository _ratingRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }

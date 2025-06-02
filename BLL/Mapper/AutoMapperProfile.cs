@@ -30,6 +30,8 @@ namespace BLL.Mapper
             CreateMap<Service, ServiceDTO>().ReverseMap();
 
             CreateMap<Appointments, AppointmentsDTO>().ReverseMap();
+
+            CreateMap<Rating, RatingDTO>().ReverseMap();
         }
     }
 }
