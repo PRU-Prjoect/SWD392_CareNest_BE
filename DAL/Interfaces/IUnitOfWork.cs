@@ -12,6 +12,7 @@ namespace DAL.Interfaces
         public IPet_TypeRepository _pet_TypeRepo { get; }
         public IService_TypeRepository _service_TypeRepo { get; }
         public IShopRepository _shopRepo { get; }
+        public IStaffRepository _staffRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }

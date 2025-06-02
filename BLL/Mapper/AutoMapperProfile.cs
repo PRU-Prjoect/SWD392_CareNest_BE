@@ -20,6 +20,8 @@ namespace BLL.Mapper
             CreateMap<Service_Type, Service_TypeDTO>().ReverseMap();
 
             CreateMap<Shop, ShopDTO>().ReverseMap();
+
+            CreateMap<Staff, StaffDTO>().ReverseMap();
         }
     }
 }

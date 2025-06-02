@@ -17,6 +17,7 @@ namespace CareNestAPI
             services.AddScoped(typeof(IPet_TypeRepository), typeof(Pet_TypeRepository));
             services.AddScoped(typeof(IService_TypeRepository), typeof(Service_TypeRepository));
             services.AddScoped(typeof(IShopRepository), typeof(ShopRepository));
+            services.AddScoped(typeof(IStaffRepository), typeof(StaffRepository));
 
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(ITokenService), typeof(TokenService));
@@ -24,6 +25,7 @@ namespace CareNestAPI
             services.AddScoped(typeof(IPet_TypeService), typeof(Pet_TypeService));
             services.AddScoped(typeof(IService_TypeService), typeof(Service_TypeService));
             services.AddScoped(typeof(IShopService), typeof(ShopService));
+            services.AddScoped(typeof(IStaffService), typeof(StaffService));
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
