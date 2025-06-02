@@ -10,6 +10,7 @@ namespace DAL.Interfaces
     {
         public IAccountRepository _accountRepo { get; }
         public IPet_TypeRepository _pet_TypeRepo { get; }
+        public IService_TypeRepository _service_TypeRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }
