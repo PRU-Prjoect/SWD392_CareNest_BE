@@ -14,6 +14,7 @@ namespace DAL.Interfaces
         public IShopRepository _shopRepo { get; }
         public IStaffRepository _staffRepo { get; }
         public ICustomerRepository _customerRepo { get; }
+        public ISub_AddressRepository _sub_AddressRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }
