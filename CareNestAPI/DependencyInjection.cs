@@ -14,10 +14,12 @@ namespace CareNestAPI
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IAccountRepository), typeof(AccountRepository));
+            services.AddScoped(typeof(IPet_TypeRepository), typeof(Pet_TypeRepository));
 
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(ITokenService), typeof(TokenService));
             services.AddScoped(typeof(IEmailService), typeof(EmailService));
+            services.AddScoped(typeof(IPet_TypeService), typeof(Pet_TypeService));
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 

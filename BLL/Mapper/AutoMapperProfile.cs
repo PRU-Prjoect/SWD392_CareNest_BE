@@ -14,6 +14,8 @@ namespace BLL.Mapper
         public AutoMapperProfile()
         {
             CreateMap<Account, AccountDTO>().ReverseMap();
+
+            CreateMap<Pet_Type, Pet_TypeDTO>().ReverseMap();
         }
     }
 }
