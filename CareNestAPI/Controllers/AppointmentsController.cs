@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BOL.DTOs;
 using DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AppointmentsController : ControllerBase
     {
         private readonly IAppointmentsService _appointmentsService;

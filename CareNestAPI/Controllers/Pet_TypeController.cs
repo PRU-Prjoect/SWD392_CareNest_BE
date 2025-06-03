@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Pet_TypeController : ControllerBase
     {
         private readonly IPet_TypeService _pet_TypeService;

@@ -2,6 +2,7 @@
 using BLL.Services;
 using BOL.DTOs;
 using DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Sub_AddressController : ControllerBase
     {
         private readonly ISub_AddressService _sub_AddressService;

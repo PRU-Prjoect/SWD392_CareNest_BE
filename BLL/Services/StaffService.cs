@@ -69,10 +69,10 @@ namespace BLL.Services
 
         public async Task<bool> CancelStaffAsync(Guid accountId)
         {
-            var staff = await _unitOfWork._staffRepo.GetByIdAsync(accountId);
+            var staff = await _unitOfWork._staffRepo.GetStaffByIdAsync(accountId);
             if (staff == null) return false;
 
-            //staff.account.is_active = false; 
+            staff.account.is_active = false;
             await _unitOfWork._staffRepo.UpdateAsync(staff);
 
             return await _unitOfWork.SaveChangeAsync() > 0;

@@ -69,6 +69,7 @@ namespace CareNestAPI.Controllers
             }
         }
         [HttpPatch("forget-password")]
+        [Authorize]
         public async Task<IActionResult> ForgetPassword(string email, string password)
         {
             try
@@ -89,6 +90,7 @@ namespace CareNestAPI.Controllers
             }
         }
         [HttpPatch("send_email")]
+        [Authorize]
         public async Task<IActionResult> SendOtp(string email)
         {
             try
@@ -109,6 +111,7 @@ namespace CareNestAPI.Controllers
             }
         }
         [HttpPatch("confirm_email")]
+        [Authorize]
         public async Task<IActionResult> ConfirmOtp(string email, string otp)
         {
             try
@@ -130,6 +133,7 @@ namespace CareNestAPI.Controllers
 
         }
         [HttpPatch("reset-password/{id}")]
+        [Authorize]
         public async Task<IActionResult> ResetPassword(string id, string password)
         {
             try
@@ -151,6 +155,7 @@ namespace CareNestAPI.Controllers
 
         }
         [HttpPatch("activate/{id}")]
+        [Authorize]
         public async Task<IActionResult> ActivateAccount(string id)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,11 @@ namespace DAL.Repositories
         public StaffRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
+        }
+        public async Task<Staff> GetStaffByIdAsync(Guid id)
+        {
+            return await _context.Staff.Include(a => a.account).FirstAsync(a => a.account_id == id);
+
         }
     }
 }
