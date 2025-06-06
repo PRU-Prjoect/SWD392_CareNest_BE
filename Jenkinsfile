@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Load Env and Generate Config') {
             steps {
-                withCredentials([file(credentialsId: 'authorize-api-dev', variable: 'ENV_SH')]) {
+                withCredentials([file(credentialsId: 'swd-api-dev', variable: 'ENV_SH')]) {
                     sh '''
                         sed 's/\r//g' "$ENV_SH" | sed '/^[[:space:]]*$/d' > cleaned_env.sh
                         set -a
