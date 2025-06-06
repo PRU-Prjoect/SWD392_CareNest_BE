@@ -17,7 +17,7 @@ pipeline {
                         set -a
                         . ./cleaned_env.sh
                         set +a
-                        envsubst < Authorize.API/appsettings.template.json > Authorize.API/appsettings.${ENVIRONMENT}.json
+                        envsubst < CareNestAPI/appsettings.template.json > CareNestAPI/appsettings.${ENVIRONMENT}.json
                         rm -f cleaned_env.sh
                     '''
                 }
