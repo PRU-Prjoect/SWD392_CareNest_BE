@@ -1,14 +1,16 @@
 ﻿using BLL.Interfaces;
 using BLL.Mapper;
 using BLL.Services;
+using BOL.Config;
 using DAL.Interfaces;
 using DAL.Repositories;
+using System.Configuration;
 
 namespace CareNestAPI
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection Services (this IServiceCollection services)
+        public static IServiceCollection Services (this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -40,8 +42,10 @@ namespace CareNestAPI
             services.AddScoped(typeof(IRatingService), typeof(RatingService));
             services.AddScoped(typeof(IService_AppointmentService), typeof(Service_AppointmentService));
             services.AddScoped(typeof(IRoomService), typeof(RoomService));
+            services.AddScoped(typeof(ICloudinaryService), typeof(CloudinaryService));
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+            services.Configure<CloudinaryConfig>(configuration.GetSection("Cloudinary"));
 
             return services;
         }

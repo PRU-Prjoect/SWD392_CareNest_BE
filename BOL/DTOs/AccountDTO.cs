@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace BOL.DTOs
 {
@@ -16,6 +18,9 @@ namespace BOL.DTOs
         [Required]
         [EmailAddress]
         public string email {  get; set; }
-        public string? image_url {  get; set; }
+        public string? img_url { get; set; }
+        public string? img_url_id { get; set; }
+        public IFormFile? img { get; set; }
+
     }
 }

@@ -176,5 +176,26 @@ namespace CareNestAPI.Controllers
             }
 
         }
+        [HttpPatch("img_url/{id}")]
+        public async Task<IActionResult> UpdateImage(Guid id, IFormFile? file)
+        {
+            try
+            {
+                var result = await _accountService.UpdateImage(id, file);
+                if (result != null)
+                {
+                    return Ok(new { message = "Image Updated", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { message = "id is invalid" });
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { message = "An error occurred" });
+            }
+
+        }
     }
 }

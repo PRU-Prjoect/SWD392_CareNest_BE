@@ -22,6 +22,7 @@ namespace DAL.Models
         public Role role  { get; set; }
         public bool is_active { get; set; }
         public string? img_url { get; set; }
+        public string? img_url_id { get; set; }
         public string? otp {  get; set; }
         public DateTime? otpExpired { get; set; }
 

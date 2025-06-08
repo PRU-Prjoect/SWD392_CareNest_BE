@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BOL.DTOs;
 using DAL.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace BLL.Interfaces
 {
@@ -17,5 +18,6 @@ namespace BLL.Interfaces
         public Task<bool> SendOtpAsync(string email);
         public Task<bool> ConfirmOtpAsync(string email, string otp);
         public Task<bool> ActivateAccount(string username);
+        public Task<AccountDTO> UpdateImage(Guid id, IFormFile? file);
     }
 }

@@ -10,6 +10,7 @@ using BOL.DTOs;
 using DAL.Interfaces;
 using DAL.Models;
 using DAL.Models.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
@@ -19,11 +20,13 @@ namespace BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService)
+        private readonly ICloudinaryService _cloudinaryService;
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, ICloudinaryService cloudinaryService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _emailService = emailService;
+            _cloudinaryService = cloudinaryService;
         }
 
 
@@ -48,13 +51,21 @@ namespace BLL.Services
 
         public async Task<AccountDTO> Register(AccountDTO accountDTO)
         {
-                accountDTO.password = BCrypt.Net.BCrypt.HashPassword(accountDTO.password);
-                var account = _mapper.Map<Account>(accountDTO);
-                account.role = Role.Guest;
-                account.is_active = true;
-                await _unitOfWork._accountRepo.AddAsync(account);
-                await _unitOfWork.SaveChangeAsync();
-                return _mapper.Map<AccountDTO>(account);
+            if (accountDTO.img != null)
+            {
+                CloudinaryDTO cloudinaryDTO = await _cloudinaryService.UploadImage(accountDTO.img);
+                accountDTO.img_url = cloudinaryDTO.url;
+                accountDTO.img_url_id = cloudinaryDTO.publicId;
+            }
+            accountDTO.password = BCrypt.Net.BCrypt.HashPassword(accountDTO.password);
+
+            var account = _mapper.Map<Account>(accountDTO);
+            account.role = Role.Guest;
+            account.is_active = true;
+
+            await _unitOfWork._accountRepo.AddAsync(account);
+            await _unitOfWork.SaveChangeAsync();
+            return _mapper.Map<AccountDTO>(account);
         }
         public async Task<bool> ForgotPassword(string email, string password)
         {
@@ -133,6 +144,43 @@ namespace BLL.Services
             await _unitOfWork._accountRepo.UpdateAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return true;
+        }
+
+        public async Task<AccountDTO> UpdateImage(Guid id, IFormFile? file)
+        {
+            CloudinaryDTO cloudinaryDTO = new CloudinaryDTO();
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
+            if (account == null)
+            {
+                return null;
+            }
+
+            if (file == null)
+            {
+                if (account.img_url_id != null)
+                {
+                    var result = await _cloudinaryService.DeleteImage(account.img_url_id);
+                }
+                account.img_url = null;
+                account.img_url_id = null;
+            }
+            else if (account.img_url_id == null)
+            {
+                cloudinaryDTO = await _cloudinaryService.UploadImage(file);
+                account.img_url = cloudinaryDTO.url;
+                account.img_url_id = cloudinaryDTO.publicId;
+            }
+            else
+            {
+                cloudinaryDTO = await _cloudinaryService.UpdateImage(file, account.img_url_id);
+                account.img_url = cloudinaryDTO.url;
+                account.img_url_id = cloudinaryDTO.publicId;
+            }
+
+
+            await _unitOfWork.SaveChangeAsync();
+            return _mapper.Map<AccountDTO>(account);
+
         }
     }
 }
