@@ -24,6 +24,7 @@ namespace BLL.Services
 
         public async Task<bool> CreateAsync(Service_TypeDTO serviceTypeDTO)
         {
+            serviceTypeDTO.is_public = false; // Default value
             var serviceType = _mapper.Map<Service_Type>(serviceTypeDTO);
             await _unitOfWork._service_TypeRepo.AddAsync(serviceType);
             await _unitOfWork.SaveChangeAsync();
@@ -53,6 +54,7 @@ namespace BLL.Services
 
         public async Task<bool> UpdateAsync(Service_TypeDTO serviceTypeDTO)
         {
+            serviceTypeDTO.is_public = false; // Default value
             var serviceType = _mapper.Map<Service_Type>(serviceTypeDTO);
             await _unitOfWork._service_TypeRepo.UpdateAsync(serviceType);
             return await _unitOfWork.SaveChangeAsync() > 0;
