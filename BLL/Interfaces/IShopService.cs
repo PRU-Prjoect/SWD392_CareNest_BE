@@ -9,13 +9,13 @@ namespace BLL.Interfaces
 {
     public interface IShopService
     {
-        Task<List<ShopDTO>> GetAllAsync();
+        Task<List<ShopResponse>> GetAllAsync(string? name = null, bool? status = null);
 
-        Task<ShopDTO> GetByIdAsync(Guid shopId);
+        Task<ShopResponse> GetByIdAsync(Guid shopId);
 
-        Task<bool> RegisterShopAsync(Guid accountId, ShopDTO shopCreateDto);
+        Task<bool> RegisterShopAsync(ShopRequest shopCreateDto);
 
-        Task<bool> UpdateAsync(ShopDTO shopUpdateDto);
+        Task<bool> UpdateAsync(ShopRequest shopUpdateDto);
 
         Task<bool> DeleteAsync(Guid shopId);
     }

@@ -23,31 +23,43 @@ namespace BLL.Services
         }
 
         // Get all shops
-        public async Task<List<ShopDTO>> GetAllAsync()
+        public async Task<List<ShopResponse>> GetAllAsync(string? name = null, bool? status = null)
         {
-            var shops = await _unitOfWork._shopRepo.GetAllAsync();
-            return _mapper.Map<List<ShopDTO>>(shops);
+            var shops = await _unitOfWork._shopRepo.GetAllShopsAsync();
+
+            // Apply filtering by Name
+            if (!string.IsNullOrEmpty(name))
+            {
+                shops = shops.Where(shop => shop.name != null && shop.name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            // Apply filtering by Status
+            if (status.HasValue)
+            {
+                shops = shops.Where(shop => shop.status == status.Value).ToList();
+            }
+
+            return _mapper.Map<List<ShopResponse>>(shops);
         }
 
         // Get shop by id
-        public async Task<ShopDTO> GetByIdAsync(Guid shopId)
+        public async Task<ShopResponse> GetByIdAsync(Guid shopId)
         {
-            var shop = await _unitOfWork._shopRepo.GetByIdAsync(shopId);
-            return _mapper.Map<ShopDTO>(shop);
+            var shop = await _unitOfWork._shopRepo.GetShopByIdAsync(shopId);
+            return _mapper.Map<ShopResponse>(shop);
         }
 
         // Register shop (with accountId as FK)
-        public async Task<bool> RegisterShopAsync(Guid accountId, ShopDTO shopCreateDto)
+        public async Task<bool> RegisterShopAsync(ShopRequest shopCreateDto)
         {
             var shop = _mapper.Map<Shop>(shopCreateDto);
-            shop.account_id = accountId;  // Gắn accountId vào Shop
 
             await _unitOfWork._shopRepo.AddAsync(shop);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
         // Update shop
-        public async Task<bool> UpdateAsync(ShopDTO shopUpdateDto)
+        public async Task<bool> UpdateAsync(ShopRequest shopUpdateDto)
         {
 
             var shop = _mapper.Map<Shop>(shopUpdateDto);

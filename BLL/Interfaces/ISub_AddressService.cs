@@ -9,10 +9,10 @@ namespace BLL.Interfaces
 {
     public interface ISub_AddressService
     {
-        Task<List<Sub_AddressDTO>> GetAllAsync(); 
-        Task<Sub_AddressDTO> GetByIdAsync(Guid id);          
-        Task<bool> CreateAsync(Sub_AddressDTO subAddressDto); 
-        Task<bool> UpdateAsync(Sub_AddressDTO subAddressDto);             
+        Task<List<Sub_AddressRequest>> GetAllAsync(); 
+        Task<Sub_AddressRequest> GetByIdAsync(Guid id);          
+        Task<bool> CreateAsync(Sub_AddressRequest subAddressDto); 
+        Task<bool> UpdateAsync(Sub_AddressRequest subAddressDto);             
         Task<bool> DeleteAsync(Guid id);
     }
 }
