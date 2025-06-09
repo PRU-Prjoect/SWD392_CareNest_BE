@@ -13,7 +13,8 @@ namespace BLL.Mapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<Account, AccountDTO>().ReverseMap();
+            CreateMap<Account, AccountRequest>().ReverseMap();
+            CreateMap<Account, AccountResponse>().ReverseMap();
 
             CreateMap<Pet_Type, Pet_TypeDTO>().ReverseMap();
 
