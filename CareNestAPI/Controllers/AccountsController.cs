@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DAL;
-using DAL.Models;
 using BLL.Interfaces;
 using BOL.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using NuGet.Common;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using static System.Net.WebRequestMethods;
+using Microsoft.AspNetCore.Identity.Data;
 
 namespace CareNestAPI.Controllers
 {
@@ -48,11 +48,11 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(LoginReq loginRequest)
         {
             try
             {
-                var result = await _accountService.Login(username, password);
+                var result = await _accountService.Login(loginRequest.username, loginRequest.password);
                 if (result != null)
                 {
                     string token = _tokenService.GenerateJWTToken(result);
@@ -70,11 +70,11 @@ namespace CareNestAPI.Controllers
         }
         [HttpPatch("forget-password")]
         [Authorize]
-        public async Task<IActionResult> ForgetPassword(string email, string password)
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordRequest forgetPasswordRequest)
         {
             try
             {
-                var result = await _accountService.ForgotPassword(email, password);
+                var result = await _accountService.ForgotPassword(forgetPasswordRequest.email, forgetPasswordRequest.password);
                 if (result)
                 {
                     return Ok(new { message = "Password changed" });
@@ -91,11 +91,11 @@ namespace CareNestAPI.Controllers
         }
         [HttpPatch("send_email")]
         [Authorize]
-        public async Task<IActionResult> SendOtp(string email)
+        public async Task<IActionResult> SendOtp(SendOtpRequest sendOtpRequest)
         {
             try
             {
-                var result = await _accountService.SendOtpAsync(email);
+                var result = await _accountService.SendOtpAsync(sendOtpRequest.email);
                 if (result)
                 {
                     return Ok(new { message = "Otp Sent" });
@@ -112,11 +112,11 @@ namespace CareNestAPI.Controllers
         }
         [HttpPatch("confirm_email")]
         [Authorize]
-        public async Task<IActionResult> ConfirmOtp(string email, string otp)
+        public async Task<IActionResult> ConfirmOtp(ConfirmOtpRequest confirmOtpRequest)
         {
             try
             {
-                var result = await _accountService.ConfirmOtpAsync(email, otp);
+                var result = await _accountService.ConfirmOtpAsync(confirmOtpRequest.email, confirmOtpRequest.otp);
                 if (result)
                 {
                     return Ok(new { message = "Otp Confirm" });
@@ -134,11 +134,11 @@ namespace CareNestAPI.Controllers
         }
         [HttpPatch("reset-password/{id}")]
         [Authorize]
-        public async Task<IActionResult> ResetPassword(string id, string password)
+        public async Task<IActionResult> ResetPassword(PasswordResetRequest resetPasswordRequest)
         {
             try
             {
-                var result = await _accountService.ResetPassword(id, password);
+                var result = await _accountService.ResetPassword(resetPasswordRequest.id, resetPasswordRequest.password);
                 if (result)
                 {
                     return Ok(new { message = "Password changed" });
