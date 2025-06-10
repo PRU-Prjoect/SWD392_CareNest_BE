@@ -13,6 +13,7 @@ using NuGet.Common;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using static System.Net.WebRequestMethods;
 using Microsoft.AspNetCore.Identity.Data;
+using System.Security.Claims;
 
 namespace CareNestAPI.Controllers
 {
@@ -34,15 +35,16 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm]AccountRequest accountRequest)
+        public async Task<IActionResult> Register([FromForm] AccountRequest accountRequest)
         {
             try
             {
                 var result = await _accountService.Register(accountRequest);
                 return Ok(new { message = "Registration Success", data = result });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
         }
@@ -63,8 +65,9 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "Wrong username or password" });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
         }
@@ -84,8 +87,9 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "Email is invalid" });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
         }
@@ -105,8 +109,9 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "Email is invalid" });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
         }
@@ -126,19 +131,20 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "Otp is invalid" });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
 
         }
         [HttpPatch("reset-password/{id}")]
         [Authorize]
-        public async Task<IActionResult> ResetPassword(PasswordResetRequest resetPasswordRequest)
+        public async Task<IActionResult> ResetPassword([FromRoute] Guid id,[FromBody]PasswordResetRequest resetPasswordRequest)
         {
             try
             {
-                var result = await _accountService.ResetPassword(resetPasswordRequest.id, resetPasswordRequest.password);
+                var result = await _accountService.ResetPassword(id, resetPasswordRequest.password);
                 if (result)
                 {
                     return Ok(new { message = "Password changed" });
@@ -148,15 +154,16 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "id is invalid" });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
 
         }
         [HttpPatch("activate/{id}")]
         [Authorize]
-        public async Task<IActionResult> ActivateAccount(string id)
+        public async Task<IActionResult> ActivateAccount(Guid id)
         {
             try
             {
@@ -170,8 +177,9 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "id is invalid" });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
 
@@ -191,8 +199,112 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "id is invalid" });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { message = "An error occurred" });
+            }
+
+        }
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetAllAccount()
+        {
+            try
+            {
+                var result = await _accountService.GetAllAccount();
+                return Ok(new { message = "success", data = result });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { message = "An error occurred" });
+            }
+
+        }
+        [HttpGet("/id/{id}")]
+        public async Task<IActionResult> GetAccountById(Guid id)
+        {
+            try
+            {
+                var result = await _accountService.GetAccountById(id);
+                if (result != null)
+                {
+                    return Ok(new { message = "Success", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { message = "id is invalid" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { message = "An error occurred" });
+            }
+
+        }
+        [HttpGet("get-login")]
+        public async Task<IActionResult> GetLoginAccount()
+        {
+            try
+            {
+                var result = await _accountService.GetLoginAccount();
+                if (result != null)
+                {
+                    return Ok(new { message = "Success", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Please Login" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { message = "An error occurred" });
+            }
+
+        }
+        [HttpDelete("delete-account/{id}")]
+        public async Task<IActionResult> DeleteAccount(Guid id)
+        {
+            try
+            {
+                var result = await _accountService.DeleteAccount(id);
+                if (result != null)
+                {
+                    return Ok(new { message = "Success", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Invalid Id" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { message = "An error occurred" });
+            }
+
+        }
+        [HttpPatch("update-account/{id}")]
+        public async Task<IActionResult> UpdateAccount([FromRoute] Guid id, [FromBody] UpdateAccountRequest updateAccountRequest)
+        {
+            try
+            {
+                var result = await _accountService.UpdateAccount(id, updateAccountRequest);
+                if (result != null)
+                {
+                    return Ok(new { message = "Success", data = result });
+                }
+                else
+                {
+                    return BadRequest(new { message = "id is invalid" });
+                }
+            }
+            catch (Exception ex )
+            {
+                Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });
             }
 

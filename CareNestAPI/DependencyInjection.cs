@@ -46,6 +46,7 @@ namespace CareNestAPI
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.Configure<CloudinaryConfig>(configuration.GetSection("Cloudinary"));
+            services.AddHttpContextAccessor();
 
             return services;
         }

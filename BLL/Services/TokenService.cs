@@ -26,6 +26,7 @@ namespace BLL.Services
             claims.Add(new Claim(ClaimTypes.Email, account.email));
             claims.Add(new Claim(ClaimTypes.Name, account.username));
             claims.Add(new Claim(ClaimTypes.Role, account.role.ToString()));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, account.id.ToString()));
 
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

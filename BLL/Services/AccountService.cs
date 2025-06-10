@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Interfaces;
 using BLL.Mapper;
 using BOL.DTOs;
+using BOL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
-using DAL.Models.Enums;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
@@ -21,12 +23,14 @@ namespace BLL.Services
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly ICloudinaryService _cloudinaryService;
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, ICloudinaryService cloudinaryService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper, IEmailService emailService, ICloudinaryService cloudinaryService, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _emailService = emailService;
             _cloudinaryService = cloudinaryService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -116,9 +120,9 @@ namespace BLL.Services
             return true;
         }
 
-        public async Task<bool> ResetPassword(string id, string password)
+        public async Task<bool> ResetPassword(Guid id, string password)
         {
-            var account = await _unitOfWork._accountRepo.GetByUsernameAsync(id);
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
             if (account == null)
             {
                 return false;
@@ -132,9 +136,9 @@ namespace BLL.Services
             return true;
         }
 
-        public async Task<bool> ActivateAccount(string username)
+        public async Task<bool> ActivateAccount(Guid id)
         {
-            var account = await _unitOfWork._accountRepo.GetByUsernameAsync(username);
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
             if (account == null)
             {
                 return false;
@@ -180,6 +184,60 @@ namespace BLL.Services
             await _unitOfWork.SaveChangeAsync();
             return _mapper.Map<AccountRequest>(account);
 
+        }
+
+        public async Task<List<Account>> GetAllAccount()
+        {
+            List<Account> accountList = await _unitOfWork._accountRepo.GetAllAsync();
+            return accountList;
+        }
+
+        public async Task<Account> GetAccountById(Guid id)
+        {
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
+            if (account == null)
+            {
+                return null;
+            }
+            return account;
+        }
+
+        public async Task<Account> GetLoginAccount()
+        {
+            var user = _httpContextAccessor.HttpContext?.User;
+            var claim = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid id = Guid.Parse(claim);
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
+            if (account == null)
+            {
+                return null;
+            }
+            return account;
+        }
+
+        public async Task<bool> DeleteAccount(Guid id)
+        {
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
+            if (account == null)
+            {
+                return false;
+            }
+            await _unitOfWork._accountRepo.RemoveAsync(account);
+            await _unitOfWork.SaveChangeAsync();
+            return true;
+        }
+
+        public async Task<Account> UpdateAccount(Guid id, UpdateAccountRequest updateAccountRequest)
+        {
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
+            if(account == null)
+            {
+                return null;
+            }
+            account = _mapper.Map(updateAccountRequest, account);
+            await _unitOfWork._accountRepo.UpdateAsync(account);
+            await _unitOfWork.SaveChangeAsync();
+            return account;
         }
     }
 }

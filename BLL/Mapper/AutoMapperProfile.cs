@@ -15,6 +15,8 @@ namespace BLL.Mapper
         {
             CreateMap<Account, AccountRequest>().ReverseMap();
             CreateMap<Account, AccountResponse>().ReverseMap();
+            CreateMap<UpdateAccountRequest, Account>().ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<Account, UpdateAccountRequest>().ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
 
             CreateMap<Pet_Type, Pet_TypeDTO>().ReverseMap();
 

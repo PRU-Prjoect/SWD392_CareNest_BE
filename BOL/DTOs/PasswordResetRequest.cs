@@ -10,8 +10,6 @@ namespace BOL.DTOs
     public class PasswordResetRequest
     {
         [Required]
-        public string id { get; set; }
-        [Required]
         public string password { get; set; }
     }
 }
