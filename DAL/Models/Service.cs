@@ -20,8 +20,8 @@ namespace DAL.Models
         public float discount_percent { get; set; } 
         public double Price { get; set; } 
         public int limit_per_hour { get; set; }
-        [ForeignKey("pet_type")]
-        public Guid pet_type_id { get; set; } 
+        //[ForeignKey("pet_type")]
+        //public Guid pet_type_id { get; set; } 
         public int duration_type { get; set; } 
         public float Star { get; set; } 
         public int purchases { get; set; }
@@ -30,9 +30,10 @@ namespace DAL.Models
         
 
         public Shop shop { get; set; }
-        public Pet_Type pet_type { get; set; }
+        //public Pet_Type pet_type { get; set; }
         public Service_Type service_type { get; set; }
-        public IEnumerable<Service_Appointment> service_appointment { get; set; }
-        public IEnumerable<ImageGallery> image_gallery { get; set; }
+        public IEnumerable<Service_Appointment>? service_appointment { get; set; }
+        public IEnumerable<Pet_Service_Room>? room { get; set; }
+        //public IEnumerable<ImageGallery> image_gallery { get; set; }
     }
 }

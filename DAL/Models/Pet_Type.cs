@@ -14,9 +14,5 @@ namespace DAL.Models
         public Guid id { get; set; } = Guid.NewGuid();
         public string? name { get; set; }
         
-
-        public IEnumerable<Service> service { get; set; }
-        public IEnumerable<Room> room { get; set; }
-
     }
 }

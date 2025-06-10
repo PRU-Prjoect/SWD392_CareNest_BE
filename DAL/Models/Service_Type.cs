@@ -17,7 +17,6 @@ namespace DAL.Models
         public bool is_public { get; set; }
         
 
-        public IEnumerable<Service> service { get; set; }
-        public IEnumerable<Room> room { get; set; }
+        public IEnumerable<Service>? service { get; set; }
     }
 }

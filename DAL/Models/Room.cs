@@ -12,21 +12,16 @@ namespace DAL.Models
     {
         [Key]
         public Guid id { get; set; } = Guid.NewGuid();
-        public string? name { get; set; }
-        public string? description { get; set; }
-        public double? price { get; set; }
-        [ForeignKey("service_type")]
-        public Guid service_type_id { get; set; }
-        [ForeignKey("shop")]
-        public Guid shop_id { get; set; }
-        [ForeignKey("pet_type")]
-        public Guid pet_type_id { get; set; }
-        
+        public int? room_number { get; set; }
+        public int? room_type { get; set; }
+        public int? max_capacity { get; set; }
+        public double? daily_price { get; set; }
+        public bool is_available { get; set; }
+        public string? amendities { get; set; }
+        public int? star {  get; set; }
 
-        public Shop shop { get; set; }
-        public Pet_Type pet_type { get; set; }
-        public Service_Type service_type { get; set; }
-        public IEnumerable<Service_Appointment> service_appointment { get; set; }
+        public IEnumerable<Room_Booking>? room_booking { get; set; }
+        public IEnumerable<Pet_Service_Room>? service { get; set; }
 
 
     }

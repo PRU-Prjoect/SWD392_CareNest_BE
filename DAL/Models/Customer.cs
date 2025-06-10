@@ -21,6 +21,7 @@ namespace DAL.Models
         public Account account { get; set; }
         public IEnumerable<Rating>? rating { get; set; }
         public IEnumerable<Appointments>? appointment { get; set; }
+        public IEnumerable<Room_Booking>? room_booking { get; set; }
 
 
     }

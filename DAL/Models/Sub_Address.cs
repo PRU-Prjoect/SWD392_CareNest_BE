@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class Sub_Address: BaseEntity
+    public class Sub_Address : BaseEntity
     {
         [Key]
         public Guid id { get; set; } = Guid.NewGuid();
+        [Required]
+        public string name { get; set; }
         [ForeignKey("shop")]
         public Guid shop_id { get; set; }
         public int? phone { get; set; }

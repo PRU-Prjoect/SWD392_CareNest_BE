@@ -30,6 +30,9 @@ namespace DAL
         public DbSet<Pet_Type> Pet_Type { get; set; }
         public DbSet<Rating> Rating { get; set; }
         public DbSet<Room> Room { get; set; }
+        public DbSet<Pet_Service_Room> Pet_Service_Room { get; set; }
+        public DbSet<Room_Booking> Room_Booking { get; set; }
+        public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Service> Service { get; set; }
         public DbSet<Service_Appointment> Service_Appointment { get; set; }
         public DbSet<Service_Type> Service_Type { get; set; }

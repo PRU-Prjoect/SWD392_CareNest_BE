@@ -23,6 +23,7 @@ namespace DAL.Models
         public IEnumerable<Staff>? staff { get; set; }
         public IEnumerable<Sub_Address>? sub_address { get; set; }
         public IEnumerable<Service>? service { get; set; }
-        public IEnumerable<Room>? room { get; set; }
+        public IEnumerable<Hotel>? hotel { get; set; }
+        //public IEnumerable<Room>? room { get; set; }
     }
 }
