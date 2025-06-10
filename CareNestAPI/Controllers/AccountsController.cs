@@ -34,11 +34,11 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(AccountDTO accountDTO)
+        public async Task<IActionResult> Register([FromForm]AccountRequest accountRequest)
         {
             try
             {
-                var result = await _accountService.Register(accountDTO);
+                var result = await _accountService.Register(accountRequest);
                 return Ok(new { message = "Registration Success", data = result });
             }
             catch (Exception)

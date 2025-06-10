@@ -49,23 +49,22 @@ namespace BLL.Services
             }
         }
 
-        public async Task<AccountDTO> Register(AccountDTO accountDTO)
+        public async Task<AccountResponse> Register(AccountRequest accountRequest)
         {
-            if (accountDTO.img != null)
-            {
-                CloudinaryDTO cloudinaryDTO = await _cloudinaryService.UploadImage(accountDTO.img);
-                accountDTO.img_url = cloudinaryDTO.url;
-                accountDTO.img_url_id = cloudinaryDTO.publicId;
-            }
-            accountDTO.password = BCrypt.Net.BCrypt.HashPassword(accountDTO.password);
-
-            var account = _mapper.Map<Account>(accountDTO);
+            accountRequest.password = BCrypt.Net.BCrypt.HashPassword(accountRequest.password);
+            var account = _mapper.Map<Account>(accountRequest);
             account.role = Role.Guest;
             account.is_active = true;
-
+            if (accountRequest.img != null)
+            {
+                CloudinaryDTO cloudinaryDTO = await _cloudinaryService.UploadImage(accountRequest.img);
+                account.img_url = cloudinaryDTO.url;
+                account.img_url_id = cloudinaryDTO.publicId;
+            }
+            
             await _unitOfWork._accountRepo.AddAsync(account);
             await _unitOfWork.SaveChangeAsync();
-            return _mapper.Map<AccountDTO>(account);
+            return _mapper.Map<AccountResponse>(account);
         }
         public async Task<bool> ForgotPassword(string email, string password)
         {
@@ -146,7 +145,7 @@ namespace BLL.Services
             return true;
         }
 
-        public async Task<AccountDTO> UpdateImage(Guid id, IFormFile? file)
+        public async Task<AccountRequest> UpdateImage(Guid id, IFormFile? file)
         {
             CloudinaryDTO cloudinaryDTO = new CloudinaryDTO();
             var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
@@ -179,7 +178,7 @@ namespace BLL.Services
 
 
             await _unitOfWork.SaveChangeAsync();
-            return _mapper.Map<AccountDTO>(account);
+            return _mapper.Map<AccountRequest>(account);
 
         }
     }

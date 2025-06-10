@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BOL.DTOs
 {
-    public class ShopDTO
+    public class ShopResponse
     {
         [Required]
         public Guid account_id { get; set; }
@@ -16,5 +16,7 @@ namespace BOL.DTOs
         public string? description { get; set; }
         public bool status { get; set; }
         public List<string>? working_day { get; set; }
+
+        public IEnumerable<Sub_AddressResponse>? sub_address { get; set; }
     }
 }

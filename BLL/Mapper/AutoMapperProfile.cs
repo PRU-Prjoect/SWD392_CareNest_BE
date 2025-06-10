@@ -13,19 +13,22 @@ namespace BLL.Mapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<Account, AccountDTO>().ReverseMap();
+            CreateMap<Account, AccountRequest>().ReverseMap();
+            CreateMap<Account, AccountResponse>().ReverseMap();
 
             CreateMap<Pet_Type, Pet_TypeDTO>().ReverseMap();
 
             CreateMap<Service_Type, Service_TypeDTO>().ReverseMap();
 
-            CreateMap<Shop, ShopDTO>().ReverseMap();
+            CreateMap<Shop, ShopRequest>().ReverseMap();
+            CreateMap<Shop, ShopResponse>().ReverseMap();
 
             CreateMap<Staff, StaffDTO>().ReverseMap();
 
             CreateMap<Customer, CustomerDTO>().ReverseMap();
 
-            CreateMap<Sub_Address, Sub_AddressDTO>().ReverseMap();
+            CreateMap<Sub_Address, Sub_AddressRequest>().ReverseMap();
+            CreateMap<Sub_Address, Sub_AddressResponse>().ReverseMap();
 
             CreateMap<Service, ServiceDTO>().ReverseMap();
 

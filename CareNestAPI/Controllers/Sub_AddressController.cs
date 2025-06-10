@@ -41,7 +41,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/Sub_Address
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Sub_AddressDTO subAddressDto)
+        public async Task<IActionResult> Create([FromBody] Sub_AddressRequest subAddressDto)
         {
             var success = await _sub_AddressService.CreateAsync(subAddressDto);
             if (!success) return BadRequest("Failed to create sub-address.");
@@ -50,7 +50,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/Sub_Address
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Sub_AddressDTO subAddressDto)
+        public async Task<IActionResult> Update([FromBody] Sub_AddressRequest subAddressDto)
         {
             var success = await _sub_AddressService.UpdateAsync(subAddressDto);
             if (!success) return NotFound("Sub-address not found or update failed.");

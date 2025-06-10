@@ -22,19 +22,19 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Sub_AddressDTO>> GetAllAsync()
+        public async Task<List<Sub_AddressRequest>> GetAllAsync()
         {
             var subAddresses = await _unitOfWork._sub_AddressRepo.GetAllAsync();
-            return _mapper.Map<List<Sub_AddressDTO>>(subAddresses);
+            return _mapper.Map<List<Sub_AddressRequest>>(subAddresses);
         }
 
-        public async Task<Sub_AddressDTO> GetByIdAsync(Guid id)
+        public async Task<Sub_AddressRequest> GetByIdAsync(Guid id)
         {
             var subAddress = await _unitOfWork._sub_AddressRepo.GetByIdAsync(id);
-            return _mapper.Map<Sub_AddressDTO>(subAddress);
+            return _mapper.Map<Sub_AddressRequest>(subAddress);
         }
 
-        public async Task<bool> CreateAsync(Sub_AddressDTO subAddressDto)
+        public async Task<bool> CreateAsync(Sub_AddressRequest subAddressDto)
         {
             var subAddress = _mapper.Map<Sub_Address>(subAddressDto);
 
@@ -42,7 +42,7 @@ namespace BLL.Services
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
-        public async Task<bool> UpdateAsync(Sub_AddressDTO subAddressDto)
+        public async Task<bool> UpdateAsync(Sub_AddressRequest subAddressDto)
         {
             var subAddress = _mapper.Map<Sub_Address>(subAddressDto);
 

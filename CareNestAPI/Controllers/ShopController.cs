@@ -23,9 +23,9 @@ namespace CareNestAPI.Controllers
 
         // GET: api/shop
         [HttpGet]
-        public async Task<IActionResult> GetAllShops()
+        public async Task<IActionResult> GetAllShops(string? name = null, bool? status = null)
         {
-            var shops = await _shopService.GetAllAsync();
+            var shops = await _shopService.GetAllAsync(name, status);
             return Ok(shops);
         }
 
@@ -39,17 +39,17 @@ namespace CareNestAPI.Controllers
         }
 
         // POST: api/shop/register/{accountId}
-        [HttpPost("register/{accountId}")]
-        public async Task<IActionResult> RegisterShop(Guid accountId, [FromBody] ShopDTO shopDto)
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterShop([FromBody] ShopRequest shopDto)
         {
-            var result = await _shopService.RegisterShopAsync(accountId, shopDto);
+            var result = await _shopService.RegisterShopAsync(shopDto);
             if (!result) return BadRequest("Shop already exists or cannot be created.");
             return Ok("Shop registered successfully.");
         }
 
         // PUT: api/shop
         [HttpPut]
-        public async Task<IActionResult> UpdateShop([FromBody] ShopDTO shopDto)
+        public async Task<IActionResult> UpdateShop([FromBody] ShopRequest shopDto)
         {
             var result = await _shopService.UpdateAsync(shopDto);
             if (!result) return NotFound("Shop not found or cannot be updated.");

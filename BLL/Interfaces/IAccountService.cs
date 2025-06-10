@@ -11,13 +11,13 @@ namespace BLL.Interfaces
 {
     public interface IAccountService
     {
-        public Task<AccountDTO> Register(AccountDTO accountDTO);
+        public Task<AccountResponse> Register(AccountRequest accountRequest);
         public Task<Account?> Login(string username, string password);
         public Task<bool> ForgotPassword(string email, string password);
         public Task<bool> ResetPassword(string id, string password);
         public Task<bool> SendOtpAsync(string email);
         public Task<bool> ConfirmOtpAsync(string email, string otp);
         public Task<bool> ActivateAccount(string username);
-        public Task<AccountDTO> UpdateImage(Guid id, IFormFile? file);
+        public Task<AccountRequest> UpdateImage(Guid id, IFormFile? file);
     }
 }
