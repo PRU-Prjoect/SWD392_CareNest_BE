@@ -1,6 +1,8 @@
 using System.Configuration;
 using System.Text;
 using CareNestAPI;
+using CareNestAPI.Middleware;
+using CareNestAPI.Filters;
 using DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +13,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<CorsActionFilter>();
+    options.Filters.Add<CorsExceptionFilter>();
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+// Add CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "CarePet API", Version = "v1" });
@@ -71,6 +89,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Use custom CORS middleware
+app.UseMiddleware<CorsMiddleware>();
+
+// Enable CORS
+app.UseCors("AllowAll");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
