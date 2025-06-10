@@ -20,10 +20,10 @@ builder.Services.AddSwaggerGen(options =>
 
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
-        Name = "Authorization", 
-        In = ParameterLocation.Header, 
-        Type = SecuritySchemeType.Http, 
-        Scheme = "Bearer" 
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer"
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -33,10 +33,10 @@ builder.Services.AddSwaggerGen(options =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = JwtBearerDefaults.AuthenticationScheme 
+                    Id = JwtBearerDefaults.AuthenticationScheme
                 },
             },
-            new List<string>() 
+            new List<string>()
         }
     });
 });
@@ -49,7 +49,8 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader());
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => {
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.Services(builder.Configuration);
@@ -71,12 +72,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseCors("AllowAllOrigins");
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
