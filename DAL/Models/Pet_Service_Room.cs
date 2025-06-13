@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public  class Pet_Service_Room
+    public  class Pet_Service_Room : BaseEntity
     {
         [Key]
         public Guid id { get; set; } = Guid.NewGuid();

@@ -20,6 +20,7 @@ namespace DAL.Interfaces
         public IRatingRepository _ratingRepo { get; }
         public IRoomRepository _roomRepo { get; }
         public IService_AppointmentRepository _service_AppointmentRepo { get; }
+        public IHotelRepository _hotelRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }

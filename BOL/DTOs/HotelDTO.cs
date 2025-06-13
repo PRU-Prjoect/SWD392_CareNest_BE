@@ -6,12 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace BOL.DTOs
 {
-    public class Hotel : BaseEntity
+    public class HotelDTO
     {
-        [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }
         public int? total_room { get; set; }
@@ -21,9 +20,5 @@ namespace DAL.Models
         [ForeignKey("sub_address")]
         public Guid? sub_address_id { get; set; }
         public bool is_active { get; set; }
-        
-        public Shop shop { get; set; }
-        public Sub_Address? sub_address { get; set; }
-        public IEnumerable<Room>? room { get; set; }
     }
 }

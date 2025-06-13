@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BOL.Enums;
 
 namespace DAL.Models
 {
@@ -14,11 +15,11 @@ namespace DAL.Models
         public Guid id { get; set; } = Guid.NewGuid();
         [ForeignKey("customer")]
         public Guid customer_id { get; set; }
-        public string? location_type { get; set; }
-        public bool? status { get; set; }
+        public string location_type { get; set; }
+        public AppointmentStatus status { get; set; }
         public string? notes { get; set; }
         public DateTime start_time { get; set; }
-        public DateTime end_type { get; set; }
+        public DateTime end_time { get; set; }
         
 
         public Customer customer { get; set; }

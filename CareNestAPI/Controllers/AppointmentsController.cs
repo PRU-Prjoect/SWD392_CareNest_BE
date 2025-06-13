@@ -1,9 +1,11 @@
 ﻿using BLL.Interfaces;
+using BLL.Services;
 using BOL.DTOs;
 using DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CareNestAPI.Controllers
 {
@@ -36,6 +38,21 @@ namespace CareNestAPI.Controllers
             var result = await _appointmentsService.GetByIdAsync(id);
             if (result == null) return NotFound();
             return Ok(result);
+        }
+        [HttpGet("report")]
+        public async Task<IActionResult> GetAppointmentReport()
+        {
+            try
+            {
+                var result = await _appointmentsService.GetAppointmentreport();
+                return Ok(new { message = "Success", data = result });
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { message = "An error occurred" });
+            }
         }
 
         // POST: api/appointments

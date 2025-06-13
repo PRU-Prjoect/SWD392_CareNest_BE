@@ -14,5 +14,6 @@ namespace BLL.Interfaces
         Task<bool> CreateAsync(AppointmentsDTO appointmentDto);
         Task<bool> UpdateAsync(AppointmentsDTO appointmentDto);
         Task<bool> DeleteAsync(Guid id);
+        Task<AppointmentReportResponse> GetAppointmentreport();
     }
 }

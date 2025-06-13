@@ -19,7 +19,10 @@ namespace DAL.Models
         public bool is_available { get; set; }
         public string? amendities { get; set; }
         public int? star {  get; set; }
+        [ForeignKey("hotel")]
+        public Guid hotel_id { get; set; }
 
+        public Hotel hotel { get; set; }
         public IEnumerable<Room_Booking>? room_booking { get; set; }
         public IEnumerable<Pet_Service_Room>? service { get; set; }
 
