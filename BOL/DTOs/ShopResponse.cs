@@ -17,6 +17,6 @@ namespace BOL.DTOs
         public bool status { get; set; }
         public List<string>? working_day { get; set; }
 
-        public IEnumerable<Sub_AddressResponse>? sub_address { get; set; }
+        public IEnumerable<Sub_AddressDTO>? sub_address { get; set; }
     }
 }

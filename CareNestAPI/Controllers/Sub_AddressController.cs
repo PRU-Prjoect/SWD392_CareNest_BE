@@ -24,10 +24,17 @@ namespace CareNestAPI.Controllers
 
         // GET: api/Sub_Address
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(Guid? shopId = null, string? addressName = null, bool? isDefault = null)
         {
-            var result = await _sub_AddressService.GetAllAsync();
-            return Ok(result);
+            try
+            {
+                var subAddresses = await _sub_AddressService.GetAllAsync(shopId, addressName, isDefault);
+                return Ok(subAddresses);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving data: {ex.Message}");
+            }
         }
 
         // GET: api/Sub_Address/{id}
@@ -41,7 +48,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/Sub_Address
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Sub_AddressRequest subAddressDto)
+        public async Task<IActionResult> Create([FromBody] Sub_AddressDTO subAddressDto)
         {
             var success = await _sub_AddressService.CreateAsync(subAddressDto);
             if (!success) return BadRequest("Failed to create sub-address.");
@@ -50,7 +57,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/Sub_Address
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Sub_AddressRequest subAddressDto)
+        public async Task<IActionResult> Update([FromBody] Sub_AddressDTO subAddressDto)
         {
             var success = await _sub_AddressService.UpdateAsync(subAddressDto);
             if (!success) return NotFound("Sub-address not found or update failed.");
