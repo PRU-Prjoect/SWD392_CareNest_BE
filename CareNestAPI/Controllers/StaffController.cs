@@ -24,9 +24,14 @@ namespace CareNestAPI.Controllers
 
         // GET: api/Staff
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync(
+        [FromQuery] string? fullName,
+        [FromQuery] string? shopName,
+        [FromQuery] string? gender,
+        [FromQuery] string? hiredAt,
+        [FromQuery] bool? isActive)
         {
-            var result = await _staffService.GetAllAsync();
+            var result = await _staffService.GetAllAsync(fullName, shopName, gender, hiredAt, isActive);
             return Ok(result);
         }
 
@@ -43,9 +48,9 @@ namespace CareNestAPI.Controllers
 
         // POST: api/Staff
         [HttpPost]
-        public async Task<IActionResult> Create(Guid accountId, Guid shopId, [FromBody] StaffDTO staffDto)
+        public async Task<IActionResult> Create([FromBody] StaffDTO staffDto)
         {
-            var success = await _staffService.CreateAsync(accountId, shopId, staffDto);
+            var success = await _staffService.CreateAsync(staffDto);
             if (!success)
                 return BadRequest("Failed to create staff");
 

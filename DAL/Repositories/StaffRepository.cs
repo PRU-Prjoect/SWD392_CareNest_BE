@@ -21,5 +21,12 @@ namespace DAL.Repositories
             return await _context.Staff.Include(a => a.account).FirstAsync(a => a.account_id == id);
 
         }
+        public async Task<List<Staff>> GetAllStaff()
+        {
+            return await _context.Staff
+                .Include(s => s.account) 
+                .Include(s => s.shop).ToListAsync(); 
+
+        }
     }
 }
