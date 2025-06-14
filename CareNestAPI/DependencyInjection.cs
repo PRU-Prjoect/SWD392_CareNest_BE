@@ -43,6 +43,7 @@ namespace CareNestAPI
             services.AddScoped(typeof(IRatingService), typeof(RatingService));
             services.AddScoped(typeof(IService_AppointmentService), typeof(Service_AppointmentService));
             services.AddScoped(typeof(IRoomService), typeof(RoomService));
+            services.AddScoped(typeof(IHotelService), typeof(HotelService));
             services.AddScoped(typeof(ICloudinaryService), typeof(CloudinaryService));
             services.AddScoped(typeof(ICloudinaryService), typeof(CloudinaryService));
 

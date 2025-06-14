@@ -40,6 +40,8 @@ namespace BLL.Mapper
             CreateMap<Service_Appointment, Service_AppointmentDTO>().ReverseMap();
 
             CreateMap<Room, RoomDTO>().ReverseMap();    
+
+            CreateMap<Hotel, HotelDTO>().ReverseMap();
         }
     }
 }
