@@ -23,9 +23,12 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync(
+            [FromQuery] string? name,
+            [FromQuery] string? gender,
+            [FromQuery] string? email)
         {
-            var customers = await _customerService.GetAllAsync();
+            var customers = await _customerService.GetAllAsync(name, gender, email);
             return Ok(customers);
         }
 

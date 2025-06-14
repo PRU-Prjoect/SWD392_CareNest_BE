@@ -29,6 +29,7 @@ namespace BLL.Mapper
             CreateMap<Staff, StaffResponse>().ReverseMap();
 
             CreateMap<Customer, CustomerDTO>().ReverseMap();
+            CreateMap<Customer, CustomerResponse>().ReverseMap();
 
             CreateMap<Sub_Address, Sub_AddressDTO>().ReverseMap();
 

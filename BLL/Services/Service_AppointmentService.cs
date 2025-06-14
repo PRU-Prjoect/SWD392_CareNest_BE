@@ -22,11 +22,31 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Service_AppointmentDTO>> GetAllAsync()
+        public async Task<List<Service_AppointmentDTO>> GetAllAsync(
+            Guid? serviceId = null,
+            Guid? appointmentId = null,
+            DateTime? startDate = null)
         {
-            var data = await _unitOfWork._service_AppointmentRepo.GetAllAsync();
+            var data = await _unitOfWork._service_AppointmentRepo.GetAllAsync(); // Trả về List
+
+            if (serviceId.HasValue)
+            {
+                data = data.Where(sa => sa.service_id == serviceId.Value).ToList();
+            }
+
+            if (appointmentId.HasValue)
+            {
+                data = data.Where(sa => sa.appointment_id == appointmentId.Value).ToList();
+            }
+
+            if (startDate.HasValue)
+            {
+                data = data.Where(sa => sa.start_time.Date == startDate.Value.Date).ToList();
+            }
+
             return _mapper.Map<List<Service_AppointmentDTO>>(data);
         }
+
 
         public async Task<Service_AppointmentDTO> GetByIdAsync(Guid serviceId)
         {

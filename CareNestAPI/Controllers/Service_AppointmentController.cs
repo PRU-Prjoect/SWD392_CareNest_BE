@@ -2,6 +2,7 @@
 using BLL.Services;
 using BOL.DTOs;
 using DAL;
+using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,12 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync(
+            [FromQuery] Guid? serviceId,
+            [FromQuery] Guid? appointmentId,
+            [FromQuery] DateTime? startDate)
         {
-            var result = await _service_AppointmentService.GetAllAsync();
+            var result = await _service_AppointmentService.GetAllAsync(serviceId, appointmentId, startDate);
             return Ok(result);
         }
 

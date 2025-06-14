@@ -1,5 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace DAL.Repositories
         public CustomerRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<List<Customer>> GetAllCustomer()
+        {
+            return await _context.Customer
+                .Include(s => s.account).ToListAsync();
+
         }
     }
 }
