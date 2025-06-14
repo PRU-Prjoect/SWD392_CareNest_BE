@@ -48,6 +48,8 @@ namespace BLL.Mapper
             CreateMap<Pet_Service_Room, Pet_Service_RoomRequest>().ReverseMap();
             CreateMap<Pet_Service_Room, Pet_Service_RoomResponse>().ReverseMap();
 
+            CreateMap<Room_Booking, Room_BookingDTO>().ReverseMap();
+
         }
     }
 }

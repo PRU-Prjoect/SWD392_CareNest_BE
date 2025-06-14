@@ -1,0 +1,85 @@
+﻿using AutoMapper;
+using BLL.Interfaces;
+using BOL.DTOs;
+using DAL.Interfaces;
+using DAL.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BLL.Services
+{
+    public class Room_BookingService : IRoom_BookingService
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public Room_BookingService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
+        public async Task<List<Room_BookingDTO>> GetAllAsync(
+            Guid? roomDetailId = null,
+            Guid? customerId = null,
+            DateTime? checkInDate = null,
+            DateTime? checkOutDate = null,
+            bool? status = null)
+        {
+            var bookings = await _unitOfWork._room_BookingRepo.GetAllAsync();
+
+            if (roomDetailId.HasValue)
+                bookings = bookings.Where(b => b.room_detail_id == roomDetailId).ToList();
+
+            if (customerId.HasValue)
+                bookings = bookings.Where(b => b.customer_id == customerId).ToList();
+
+            if (checkInDate.HasValue)
+                bookings = bookings.Where(b => b.check_in_date.Date == checkInDate.Value.Date).ToList();
+
+            if (checkOutDate.HasValue)
+                bookings = bookings.Where(b => b.check_out_date.Date == checkOutDate.Value.Date).ToList();
+
+            if (status.HasValue)
+                bookings = bookings.Where(b => b.status == status).ToList();
+
+            return _mapper.Map<List<Room_BookingDTO>>(bookings);
+        }
+
+        public async Task<Room_BookingDTO> GetByIdAsync(Guid id)
+        {
+            var booking = await _unitOfWork._room_BookingRepo.GetByIdAsync(id);
+            return _mapper.Map<Room_BookingDTO>(booking);
+        }
+
+        public async Task<bool> CreateAsync(Room_BookingDTO dto)
+        {
+            var booking = _mapper.Map<Room_Booking>(dto);
+            await _unitOfWork._room_BookingRepo.AddAsync(booking);
+            return await _unitOfWork.SaveChangeAsync() > 0;
+        }
+
+        public async Task<bool> UpdateAsync(Room_BookingDTO dto)
+        {
+            var existing = await _unitOfWork._room_BookingRepo.GetByIdAsync(dto.id);
+            if (existing == null) return false;
+
+            _mapper.Map(dto, existing); // map changes
+            await _unitOfWork._room_BookingRepo.UpdateAsync(existing);
+            return await _unitOfWork.SaveChangeAsync() > 0;
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var booking = await _unitOfWork._room_BookingRepo.GetByIdAsync(id);
+            if (booking == null) return false;
+
+            await _unitOfWork._room_BookingRepo.RemoveAsync(booking);
+            return await _unitOfWork.SaveChangeAsync() > 0;
+        }
+
+    }
+}

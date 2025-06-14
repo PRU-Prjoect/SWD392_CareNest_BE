@@ -29,6 +29,7 @@ namespace CareNestAPI
             services.AddScoped(typeof(IRoomRepository), typeof(RoomRepository));
             services.AddScoped(typeof(IHotelRepository), typeof(HotelRepository));
             services.AddScoped(typeof(IPet_Service_RoomRepository), typeof(Pet_Service_RoomRepository));
+            services.AddScoped(typeof(IRoom_BookingRepository), typeof(Room_BookingRepository));
 
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(ITokenService), typeof(TokenService));
@@ -46,6 +47,7 @@ namespace CareNestAPI
             services.AddScoped(typeof(IRoomService), typeof(RoomService));
             services.AddScoped(typeof(IHotelService), typeof(HotelService));
             services.AddScoped(typeof(IPet_Service_RoomService), typeof(Pet_Service_RoomService));
+            services.AddScoped(typeof(IRoom_BookingService), typeof(Room_BookingService));
             services.AddScoped(typeof(ICloudinaryService), typeof(CloudinaryService));
             services.AddScoped(typeof(ICloudinaryService), typeof(CloudinaryService));
 

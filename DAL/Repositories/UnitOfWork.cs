@@ -24,6 +24,7 @@ namespace DAL.Repositories
         private readonly IRoomRepository _roomRepository;
         private readonly IHotelRepository _hotelRepository;
         private readonly IPet_Service_RoomRepository _pet_Service_RoomRepository;
+        private readonly IRoom_BookingRepository _room_BookingRepository;
 
         public UnitOfWork(ApplicationDbContext Context,
             IAccountRepository AccountRepository,
@@ -39,7 +40,8 @@ namespace DAL.Repositories
             IService_AppointmentRepository service_AppointmentRepository,
             IRoomRepository roomRepository,
             IHotelRepository hotelRepository,
-            IPet_Service_RoomRepository pet_Service_RoomRepository)
+            IPet_Service_RoomRepository pet_Service_RoomRepository,
+            IRoom_BookingRepository room_BookingRepository)
         {
             _context = Context;
             _accountRepository = AccountRepository;
@@ -56,6 +58,7 @@ namespace DAL.Repositories
             _roomRepository = roomRepository;
             _hotelRepository = hotelRepository;
             _pet_Service_RoomRepository = pet_Service_RoomRepository;
+            _room_BookingRepository = room_BookingRepository;
         }
 
         public IAccountRepository _accountRepo => _accountRepository;
@@ -72,6 +75,9 @@ namespace DAL.Repositories
         public IRoomRepository _roomRepo => _roomRepository;
         public IHotelRepository _hotelRepo => _hotelRepository;
         public IPet_Service_RoomRepository _pet_Service_RoomRepo => _pet_Service_RoomRepository;
+
+        public IRoom_BookingRepository _room_BookingRepo => _room_BookingRepository;
+
         public async Task<int> SaveChangeAsync()
         {
             return await _context.SaveChangesAsync();
