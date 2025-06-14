@@ -23,10 +23,25 @@ namespace CareNestAPI.Controllers
 
         // GET: api/Service
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetServices(
+            string name = null,
+            bool? isActive = null,
+            int? estimatedTime = null,
+            Guid? serviceTypeId = null,
+            string sortBy = "createdAt") // Tham số sắp xếp
         {
-            var services = await _serviceService.GetAllAsync();
-            return Ok(services);
+            try
+            {
+                var services = await _serviceService.GetAllAsync(
+                    name, isActive, estimatedTime, serviceTypeId, sortBy);
+
+                return Ok(services);
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi nếu cần
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
         }
 
         // GET: api/Service/{id}
@@ -56,13 +71,52 @@ namespace CareNestAPI.Controllers
             return Ok("Service updated successfully.");
         }
 
+        [HttpPut("Cancel/{id}")]
+        public async Task<IActionResult> CancelService(Guid id)
+        {
+            var success = await _serviceService.CancelService(id);
+
+            if (!success)
+            {
+                return NotFound("Service not found or cannot be canceled due to existing bookings.");
+            }
+
+            return Ok("Service canceled successfully.");
+        }
+
         // DELETE: api/Service/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _serviceService.DeleteAsync(id);
-            if (!success) return NotFound("Service not found.");
+            if (!success) return NotFound("Service not found or cannot be deleted");
             return Ok("Service deleted successfully.");
+        }
+
+        [HttpPut("UpdateStarAverage/{serviceId}")]
+        public async Task<IActionResult> UpdateStarAverage(Guid serviceId, int newRating)
+        {
+            var result = await _serviceService.UpdateStarAverage(serviceId, newRating);
+
+            if (!result)
+            {
+                return NotFound("Service not found or could not update star average.");
+            }
+
+            return Ok("Star average updated successfully.");
+        }
+
+        [HttpPut("UpdateAppointmentCount/{serviceId}")]
+        public async Task<IActionResult> UpdateAppointmentCount(Guid serviceId)
+        {
+            var result = await _serviceService.UpdateAppointmentCount(serviceId);
+
+            if (!result)
+            {
+                return NotFound("Service not found or could not update appointment count.");
+            }
+
+            return Ok("Appointment count updated successfully.");
         }
 
     }
