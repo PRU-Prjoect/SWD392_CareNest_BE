@@ -22,9 +22,28 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<List<RoomDTO>> GetAllAsync()
+        public async Task<List<RoomDTO>> GetAllAsync(Guid? hotelId = null, bool? isAvailable = null, int? roomType = null)
         {
             var rooms = await _unitOfWork._roomRepo.GetAllAsync();
+
+            // Lọc theo hotelId nếu có
+            if (hotelId.HasValue)
+            {
+                rooms = rooms.Where(r => r.hotel_id == hotelId.Value).ToList();
+            }
+
+            // Lọc theo isAvailable nếu có
+            if (isAvailable.HasValue)
+            {
+                rooms = rooms.Where(r => r.is_available == isAvailable.Value).ToList();
+            }
+
+            // Lọc theo roomType nếu có
+            if (roomType.HasValue)
+            {
+                rooms = rooms.Where(r => r.room_type == roomType.Value).ToList();
+            }
+
             return _mapper.Map<List<RoomDTO>>(rooms);
         }
 

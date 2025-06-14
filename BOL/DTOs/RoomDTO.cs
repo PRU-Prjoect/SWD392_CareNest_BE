@@ -10,13 +10,16 @@ namespace BOL.DTOs
 {
     public class RoomDTO
     {
-        [Required]
         public Guid id { get; set; } = Guid.NewGuid();
-        public string? name { get; set; }
-        public string? description { get; set; }
-        public double? price { get; set; }
-        public Guid service_type_id { get; set; }
-        public Guid shop_id { get; set; }
-        public Guid pet_type_id { get; set; }
+        public int? room_number { get; set; }
+        public int? room_type { get; set; }
+        public int? max_capacity { get; set; }
+        public double? daily_price { get; set; }
+        public bool is_available { get; set; }
+        public string? amendities { get; set; }
+        public int? star { get; set; }
+        [ForeignKey("hotel")]
+        public Guid hotel_id { get; set; }
+
     }
 }

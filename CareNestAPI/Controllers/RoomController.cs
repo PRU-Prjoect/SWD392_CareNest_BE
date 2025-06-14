@@ -21,10 +21,17 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllRooms(Guid? hotelId = null, bool? isAvailable = null, int? roomType = null)
         {
-            var result = await _roomService.GetAllAsync();
-            return Ok(result);
+            try
+            {
+                var rooms = await _roomService.GetAllAsync(hotelId, isAvailable, roomType);
+                return Ok(rooms);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving data: {ex.Message}");
+            }
         }
 
         [HttpGet("{id}")]
