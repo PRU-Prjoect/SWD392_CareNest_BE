@@ -90,11 +90,65 @@ namespace BLL.Services
         // Delete shop
         public async Task<bool> DeleteAsync(Guid shopId)
         {
+            // Lấy cửa hàng theo shopId
             var shop = await _unitOfWork._shopRepo.GetByIdAsync(shopId);
-            if (shop == null) return false;
+            if (shop == null) return false; // Kiểm tra null
 
-            await _unitOfWork._shopRepo.RemoveAsync(shop);
-            return await _unitOfWork.SaveChangeAsync() > 0;
+            // Kiểm tra các cuộc hẹn có trạng thái 'InProgress'
+            var services = shop.service ?? new List<Service>(); // Kiểm tra null
+            var serviceAppointments = services.SelectMany(s => s.service_appointment ?? Enumerable.Empty<Service_Appointment>()).ToList();
+            var appointments = serviceAppointments.Select(sa => sa.appointment ?? new Appointments()).ToList();
+
+            if (appointments.Any(a => a.status == AppointmentStatus.InProgress))
+            {
+                return false; // Không thể xóa nếu có cuộc hẹn chưa hoàn thành
+            }
+
+            try
+            {
+                // Xóa nhân viên
+                foreach (var staff in shop.staff ?? Enumerable.Empty<Staff>())
+                {
+                    await _unitOfWork._staffRepo.RemoveAsync(staff);
+                }
+
+                // Xóa địa chỉ phụ
+                foreach (var subAddress in shop.sub_address ?? Enumerable.Empty<Sub_Address>())
+                {
+                    await _unitOfWork._sub_AddressRepo.RemoveAsync(subAddress);
+                }
+
+                // Xóa khách sạn và phòng
+                foreach (var hotel in shop.hotel ?? Enumerable.Empty<Hotel>())
+                {
+                    foreach (var room in hotel.room ?? Enumerable.Empty<Room>())
+                    {
+                        await _unitOfWork._roomRepo.RemoveAsync(room);
+                    }
+                    await _unitOfWork._hotelRepo.RemoveAsync(hotel);
+                }
+
+                // Xóa dịch vụ và phòng dịch vụ
+                foreach (var service in services)
+                {
+                    foreach (var petServiceRoom in service.room ?? Enumerable.Empty<Pet_Service_Room>())
+                    {
+                        await _unitOfWork._pet_Service_RoomRepo.RemoveAsync(petServiceRoom);
+                    }
+                    await _unitOfWork._serviceRepo.RemoveAsync(service);
+                }
+
+                // Xóa cửa hàng
+                await _unitOfWork._shopRepo.RemoveAsync(shop);
+
+                // Lưu tất cả thay đổi
+                return await _unitOfWork.SaveChangeAsync() > 0;
+            }
+            catch
+            {
+                // Xử lý lỗi nếu cần thiết
+                return false;
+            }
         }
-    }
+    }    
 }
