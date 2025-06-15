@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BLL.Services;
 using BOL.DTOs;
+using BOL.Enums;
 using DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,14 @@ namespace CareNestAPI.Controllers
             _appointmentsService = appointmentsService;
             _context = context;
         }
-
         // GET: api/appointments
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            Guid? customerId = null,
+            AppointmentStatus? status = null,
+            DateTime? startTime = null)
         {
-            var result = await _appointmentsService.GetAllAsync();
+            var result = await _appointmentsService.GetAllAsync(customerId, status, startTime);
             return Ok(result);
         }
 

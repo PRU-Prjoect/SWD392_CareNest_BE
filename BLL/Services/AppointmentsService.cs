@@ -4,6 +4,7 @@ using BOL.DTOs;
 using BOL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,34 @@ namespace BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
-        public async Task<List<AppointmentsDTO>> GetAllAsync()
+        public async Task<List<AppointmentsDTO>> GetAllAsync(
+            Guid? customerId = null,
+            AppointmentStatus? status = null,
+            DateTime? startTime = null)
         {
-            var appointments = await _unitOfWork._appointmentsRepo.GetAllAsync();
-            return _mapper.Map<List<AppointmentsDTO>>(appointments);
+            // Lấy tất cả các cuộc hẹn
+            var appointmentsQuery = await _unitOfWork._appointmentsRepo.GetAllAsync();
+
+            // Lọc theo customerId nếu có
+            if (customerId.HasValue)
+            {
+                appointmentsQuery = appointmentsQuery.Where(a => a.customer_id == customerId.Value).ToList();
+            }
+
+            // Lọc theo status nếu có
+            if (status.HasValue)
+            {
+                appointmentsQuery = appointmentsQuery.Where(a => a.status == status.Value).ToList();
+            }
+
+            // Lọc theo startTime nếu có
+            if (startTime.HasValue)
+            {
+                appointmentsQuery = appointmentsQuery.Where(a => a.start_time.Date == startTime.Value.Date).ToList();
+            }
+
+            // Chuyển đổi sang danh sách DTO
+            return _mapper.Map<List<AppointmentsDTO>>(appointmentsQuery);
         }
 
         public async Task<AppointmentsDTO> GetByIdAsync(Guid id)

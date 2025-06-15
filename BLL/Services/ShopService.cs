@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BOL.DTOs;
+using BOL.Enums;
+using CloudinaryDotNet;
 using DAL.Interfaces;
 using DAL.Models;
 using System;
@@ -54,8 +56,25 @@ namespace BLL.Services
         {
             var shop = _mapper.Map<Shop>(shopCreateDto);
 
-            await _unitOfWork._shopRepo.AddAsync(shop);
-            return await _unitOfWork.SaveChangeAsync() > 0;
+            // Lấy thông tin tài khoản của shop từ cơ sở dữ liệu
+            var shopAccount = await _unitOfWork._accountRepo.GetByIdAsync(shopCreateDto.account_id);
+
+            if (shopAccount != null)
+            {
+                // Cập nhật vai trò của tài khoản thành "shop"
+                shopAccount.role = Role.Shop;
+
+                // Cập nhật tài khoản
+                await _unitOfWork._accountRepo.UpdateAsync(shopAccount);
+
+                // Thêm cửa hàng vào cơ sở dữ liệu
+                await _unitOfWork._shopRepo.AddAsync(shop);
+
+                // Lưu tất cả thay đổi
+                return await _unitOfWork.SaveChangeAsync() > 0;
+            }
+
+            return false; // Nếu không tìm thấy tài khoản
         }
 
         // Update shop
