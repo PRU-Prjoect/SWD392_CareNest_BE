@@ -9,7 +9,6 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class RatingController : ControllerBase
     {
         private readonly IRatingService _ratingService;
@@ -39,6 +38,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/Rating
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] RatingDTO ratingDto)
         {
             var success = await _ratingService.CreateAsync(ratingDto);
@@ -48,6 +48,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/Rating
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] RatingDTO ratingDto)
         {
             var success = await _ratingService.UpdateAsync(ratingDto);
@@ -57,6 +58,7 @@ namespace CareNestAPI.Controllers
 
         // DELETE: api/Rating/{id}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _ratingService.DeleteAsync(id);

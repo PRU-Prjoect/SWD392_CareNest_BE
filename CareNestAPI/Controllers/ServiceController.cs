@@ -9,7 +9,6 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ServiceController : ControllerBase
     {
         private readonly IServiceService _serviceService;
@@ -55,6 +54,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/Service
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] ServiceDTO serviceDto)
         {
             var success = await _serviceService.CreateAsync(serviceDto);
@@ -64,6 +64,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/Service
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] ServiceDTO serviceDto)
         {
             var success = await _serviceService.UpdateAsync(serviceDto);
@@ -72,6 +73,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPut("Cancel/{id}")]
+        [Authorize]
         public async Task<IActionResult> CancelService(Guid id)
         {
             var success = await _serviceService.CancelService(id);
@@ -86,6 +88,7 @@ namespace CareNestAPI.Controllers
 
         // DELETE: api/Service/{id}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _serviceService.DeleteAsync(id);
@@ -94,6 +97,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPut("UpdateStarAverage/{serviceId}")]
+        [Authorize]
         public async Task<IActionResult> UpdateStarAverage(Guid serviceId, int newRating)
         {
             var result = await _serviceService.UpdateStarAverage(serviceId, newRating);
@@ -107,6 +111,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPut("UpdateAppointmentCount/{serviceId}")]
+        [Authorize]
         public async Task<IActionResult> UpdateAppointmentCount(Guid serviceId)
         {
             var result = await _serviceService.UpdateAppointmentCount(serviceId);

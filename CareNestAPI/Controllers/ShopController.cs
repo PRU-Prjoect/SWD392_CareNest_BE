@@ -9,7 +9,6 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ShopController : ControllerBase
     {
         private readonly IShopService _shopService;
@@ -40,6 +39,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/shop/register/{accountId}
         [HttpPost("register")]
+        [Authorize]
         public async Task<IActionResult> RegisterShop([FromBody] ShopRequest shopDto)
         {
             var result = await _shopService.RegisterShopAsync(shopDto);
@@ -49,6 +49,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/shop
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateShop([FromBody] ShopRequest shopDto)
         {
             var result = await _shopService.UpdateAsync(shopDto);
@@ -58,6 +59,7 @@ namespace CareNestAPI.Controllers
 
         // DELETE: api/shop/{accountId}
         [HttpDelete("{accountId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteShop(Guid accountId)
         {
             var result = await _shopService.DeleteAsync(accountId);

@@ -9,7 +9,6 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class HotelController : ControllerBase
     {
         private readonly IHotelService _hotelService;
@@ -57,6 +56,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/hotel
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateHotel([FromBody] HotelDTO hotelDto)
         {
             if (!ModelState.IsValid)
@@ -81,6 +81,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/hotel/{id}
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateHotel([FromBody] HotelDTO hotelDto)
         {
             if (!ModelState.IsValid)
@@ -105,6 +106,7 @@ namespace CareNestAPI.Controllers
 
         // DELETE: api/hotel/{id}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteHotel(Guid id)
         {
             try

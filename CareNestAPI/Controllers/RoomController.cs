@@ -9,7 +9,6 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
@@ -43,6 +42,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] RoomDTO roomDto)
         {
             var success = await _roomService.CreateAsync(roomDto);
@@ -51,6 +51,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] RoomDTO roomDto)
         {
             var success = await _roomService.UpdateAsync(roomDto);
@@ -59,6 +60,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _roomService.DeleteAsync(id);

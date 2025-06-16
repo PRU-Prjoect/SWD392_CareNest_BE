@@ -10,7 +10,6 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class Pet_TypeController : ControllerBase
     {
         private readonly IPet_TypeService _pet_TypeService;
@@ -57,6 +56,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/pet-type
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreatePetType([FromBody] Pet_TypeDTO petTypeDTO)
         {
             if (petTypeDTO == null)
@@ -81,6 +81,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/pet-type/{id}
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdatePetType(Guid id, [FromBody] Pet_TypeDTO petTypeDTO)
         {
             if (petTypeDTO == null || petTypeDTO.id != id)
@@ -105,6 +106,7 @@ namespace CareNestAPI.Controllers
 
         // DELETE: api/pet-type/{id}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeletePetType(Guid id)
         {
             try

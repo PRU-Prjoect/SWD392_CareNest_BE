@@ -10,7 +10,6 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class Service_TypeController : ControllerBase
     {
         private readonly IService_TypeService _service_TypeService;
@@ -58,6 +57,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/service-type
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateServiceType(Service_TypeDTO serviceTypeDTO)
         {
             try
@@ -77,6 +77,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/service-type/{id}
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateServiceType(Guid id, Service_TypeDTO serviceTypeDTO)
         {
             if (id != serviceTypeDTO.id)
@@ -101,6 +102,7 @@ namespace CareNestAPI.Controllers
 
         // DELETE: api/service-type/{id}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteServiceType(Guid id)
         {
             try
