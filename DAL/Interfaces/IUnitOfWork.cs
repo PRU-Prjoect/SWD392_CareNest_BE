@@ -17,6 +17,7 @@
         public IHotelRepository _hotelRepo { get; }
         public IPet_Service_RoomRepository _pet_Service_RoomRepo { get; }
         public IRoom_BookingRepository _room_BookingRepo { get; }
+        public INotificationRepository _notificationRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }
