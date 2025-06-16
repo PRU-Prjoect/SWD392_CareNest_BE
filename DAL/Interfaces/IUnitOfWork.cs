@@ -18,6 +18,7 @@
         public IPet_Service_RoomRepository _pet_Service_RoomRepo { get; }
         public IRoom_BookingRepository _room_BookingRepo { get; }
         public INotificationRepository _notificationRepo { get; }
+        public IImageGalleryRepository _imageGalleryRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }

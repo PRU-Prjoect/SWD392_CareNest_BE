@@ -48,6 +48,9 @@ namespace BLL.Mapper
 
             CreateMap<Notification, NotificationDTO>().ReverseMap();
 
+            CreateMap<ImageGallery, ImageGalleryResponse>().ReverseMap();
+            CreateMap<ImageGallery, ImageGalleryRequest>().ReverseMap();
+
         }
     }
 }
