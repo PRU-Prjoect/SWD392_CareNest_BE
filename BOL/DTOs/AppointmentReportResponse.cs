@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BOL.DTOs
+﻿namespace BOL.DTOs
 {
     public class AppointmentReportResponse
     {
@@ -13,10 +7,10 @@ namespace BOL.DTOs
         public int? Cancel { get; set; }
         public int? InProgress { get; set; }
         public int? NoProgress { get; set; }
-        public int? FinishPercent {  get; set; }
-        public int? CancelPercent {  get; set; }
-        public int? InProgressPercent {  get; set; }
-        public int? NoProgressPercent {  get; set; }
-        
+        public int? FinishPercent { get; set; }
+        public int? CancelPercent { get; set; }
+        public int? InProgressPercent { get; set; }
+        public int? NoProgressPercent { get; set; }
+
     }
 }

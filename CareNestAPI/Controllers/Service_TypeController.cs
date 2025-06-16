@@ -1,9 +1,7 @@
 ﻿using BLL.Interfaces;
-using BLL.Services;
 using BOL.DTOs;
 using DAL;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareNestAPI.Controllers
@@ -58,7 +56,7 @@ namespace CareNestAPI.Controllers
         // POST: api/service-type
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateServiceType([FromForm]  Service_TypeRequest serviceTypeDTO)
+        public async Task<IActionResult> CreateServiceType([FromForm] Service_TypeRequest serviceTypeDTO)
         {
             try
             {
@@ -74,7 +72,7 @@ namespace CareNestAPI.Controllers
         // PUT: api/service-type/{id}
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> UpdateServiceType([FromForm]  Service_TypeRequest serviceTypeDTO)
+        public async Task<IActionResult> UpdateServiceType([FromForm] Service_TypeRequest serviceTypeDTO)
         {
             try
             {

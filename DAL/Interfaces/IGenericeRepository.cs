@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL.Interfaces
+﻿namespace DAL.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -15,4 +9,3 @@ namespace DAL.Interfaces
         Task RemoveAsync(T entity);
     }
 }
- 

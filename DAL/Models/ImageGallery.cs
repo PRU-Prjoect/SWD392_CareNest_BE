@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
@@ -17,7 +11,7 @@ namespace DAL.Models
         public string? owner_id { get; set; }
         //[ForeignKey("service")]
         //public Guid service_id { get; set; }
-        
+
 
         //public Service service { get; set; }
     }

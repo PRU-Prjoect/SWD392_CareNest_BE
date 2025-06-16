@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DAL;
-using BLL.Interfaces;
+﻿using BLL.Interfaces;
 using BOL.DTOs;
+using DAL;
 using Microsoft.AspNetCore.Authorization;
-using NuGet.Common;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using static System.Net.WebRequestMethods;
-using Microsoft.AspNetCore.Identity.Data;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CareNestAPI.Controllers
 {
@@ -72,7 +61,6 @@ namespace CareNestAPI.Controllers
             }
         }
         [HttpPatch("forget-password")]
-        [Authorize]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordRequest forgetPasswordRequest)
         {
             try
@@ -94,7 +82,6 @@ namespace CareNestAPI.Controllers
             }
         }
         [HttpPatch("send_email")]
-        [Authorize]
         public async Task<IActionResult> SendOtp(SendOtpRequest sendOtpRequest)
         {
             try
@@ -116,7 +103,6 @@ namespace CareNestAPI.Controllers
             }
         }
         [HttpPatch("confirm_email")]
-        [Authorize]
         public async Task<IActionResult> ConfirmOtp(ConfirmOtpRequest confirmOtpRequest)
         {
             try
@@ -138,9 +124,15 @@ namespace CareNestAPI.Controllers
             }
 
         }
+        /// <summary>
+        /// dành cho shop cấp tài khoản nhân viên
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="resetPasswordRequest"></param>
+        /// <returns></returns>
         [HttpPatch("reset-password/{id}")]
         [Authorize]
-        public async Task<IActionResult> ResetPassword([FromRoute] Guid id,[FromBody]PasswordResetRequest resetPasswordRequest)
+        public async Task<IActionResult> ResetPassword([FromRoute] Guid id, [FromBody] PasswordResetRequest resetPasswordRequest)
         {
             try
             {
@@ -161,6 +153,7 @@ namespace CareNestAPI.Controllers
             }
 
         }
+
         [HttpPatch("activate/{id}")]
         [Authorize]
         public async Task<IActionResult> ActivateAccount(Guid id)
@@ -184,6 +177,7 @@ namespace CareNestAPI.Controllers
             }
 
         }
+
         [HttpPatch("img_url/{id}")]
         public async Task<IActionResult> UpdateImage(Guid id, IFormFile? file)
         {
@@ -206,7 +200,9 @@ namespace CareNestAPI.Controllers
             }
 
         }
+
         [HttpGet("get-all")]
+        [Authorize]
         public async Task<IActionResult> GetAllAccount()
         {
             try
@@ -221,7 +217,9 @@ namespace CareNestAPI.Controllers
             }
 
         }
+
         [HttpGet("/id/{id}")]
+        [Authorize]
         public async Task<IActionResult> GetAccountById(Guid id)
         {
             try
@@ -243,7 +241,9 @@ namespace CareNestAPI.Controllers
             }
 
         }
+
         [HttpGet("get-login")]
+        [Authorize]
         public async Task<IActionResult> GetLoginAccount()
         {
             try
@@ -266,6 +266,7 @@ namespace CareNestAPI.Controllers
 
         }
         [HttpDelete("delete-account/{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAccount(Guid id)
         {
             try
@@ -287,7 +288,9 @@ namespace CareNestAPI.Controllers
             }
 
         }
+
         [HttpPatch("update-account/{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateAccount([FromRoute] Guid id, [FromBody] UpdateAccountRequest updateAccountRequest)
         {
             try
@@ -302,7 +305,7 @@ namespace CareNestAPI.Controllers
                     return BadRequest(new { message = "id is invalid" });
                 }
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return BadRequest(new { message = "An error occurred" });

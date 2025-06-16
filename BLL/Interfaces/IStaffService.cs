@@ -1,9 +1,4 @@
 ﻿using BOL.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
@@ -17,7 +12,7 @@ namespace BLL.Interfaces
                 bool? isActive = null);
         Task<StaffDTO> GetByIdAsync(Guid staffId);
         Task<bool> CreateAsync(StaffDTO staffDto);
-        Task<bool> UpdateAsync(StaffDTO staffDto); 
+        Task<bool> UpdateAsync(StaffDTO staffDto);
         Task<bool> DeleteAsync(Guid staffId);
         Task<bool> CancelStaffAsync(Guid staffId);
     }

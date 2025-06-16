@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models
 {
@@ -18,7 +13,7 @@ namespace DAL.Models
         public double? daily_price { get; set; }
         public bool is_available { get; set; }
         public string? amendities { get; set; }
-        public int? star {  get; set; }
+        public int? star { get; set; }
         [ForeignKey("hotel")]
         public Guid hotel_id { get; set; }
 

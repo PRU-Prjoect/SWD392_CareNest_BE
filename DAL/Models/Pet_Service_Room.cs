@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public  class Pet_Service_Room : BaseEntity
+    public class Pet_Service_Room : BaseEntity
     {
         [Key]
         public Guid id { get; set; } = Guid.NewGuid();

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models
 {
@@ -21,7 +16,7 @@ namespace DAL.Models
         public Guid rating_id { get; set; }
         [ForeignKey("room")]
         public Guid room_id { get; set; }
-        
+
 
         public Room room { get; set; }
         public Service service { get; set; }

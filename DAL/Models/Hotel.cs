@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models
 {
@@ -21,7 +16,7 @@ namespace DAL.Models
         [ForeignKey("sub_address")]
         public Guid? sub_address_id { get; set; }
         public bool is_active { get; set; }
-        
+
         public Shop shop { get; set; }
         public Sub_Address? sub_address { get; set; }
         public IEnumerable<Room>? room { get; set; }

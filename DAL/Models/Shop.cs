@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models
 {
@@ -17,7 +12,7 @@ namespace DAL.Models
         public string? description { get; set; }
         public bool status { get; set; }
         public List<string>? working_day { get; set; }
-        
+
 
         public Account account { get; set; }
         public IEnumerable<Staff>? staff { get; set; }

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BOL.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BOL.Enums;
 
 namespace DAL.Models
 {
-    public class Account: BaseEntity
+    public class Account : BaseEntity
     {
         [Key]
         public Guid id { get; set; } = Guid.NewGuid();
@@ -19,11 +14,11 @@ namespace DAL.Models
         [EmailAddress]
         [Required]
         public string email { get; set; }
-        public Role role  { get; set; }
+        public Role role { get; set; }
         public bool is_active { get; set; }
         public string? img_url { get; set; }
         public string? img_url_id { get; set; }
-        public string? otp {  get; set; }
+        public string? otp { get; set; }
         public DateTime? otpExpired { get; set; }
 
 

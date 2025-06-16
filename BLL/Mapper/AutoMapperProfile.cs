@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BOL.DTOs;
 using DAL.Models;
 
 namespace BLL.Mapper
 {
-    public class AutoMapperProfile: Profile
+    public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
@@ -42,7 +37,7 @@ namespace BLL.Mapper
 
             CreateMap<Service_Appointment, Service_AppointmentDTO>().ReverseMap();
 
-            CreateMap<Room, RoomDTO>().ReverseMap();    
+            CreateMap<Room, RoomDTO>().ReverseMap();
 
             CreateMap<Hotel, HotelDTO>().ReverseMap();
 

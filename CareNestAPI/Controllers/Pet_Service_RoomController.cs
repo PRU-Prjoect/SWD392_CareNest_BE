@@ -1,7 +1,6 @@
 ﻿using BLL.Interfaces;
 using BOL.DTOs;
 using DAL;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareNestAPI.Controllers

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using BOL.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BOL.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Models
 {
-    public class Appointments: BaseEntity
+    public class Appointments : BaseEntity
     {
         [Key]
         public Guid id { get; set; } = Guid.NewGuid();
@@ -20,7 +15,7 @@ namespace DAL.Models
         public string? notes { get; set; }
         public DateTime start_time { get; set; }
         public DateTime end_time { get; set; }
-        
+
 
         public Customer customer { get; set; }
         public IEnumerable<Service_Appointment> service_appointment { get; set; }

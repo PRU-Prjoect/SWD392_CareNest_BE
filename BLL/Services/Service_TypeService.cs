@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BOL.DTOs;
-using CloudinaryDotNet;
 using DAL.Interfaces;
 using DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services
 {
@@ -59,7 +53,7 @@ namespace BLL.Services
             return _mapper.Map<List<Service_TypeResponse>>(serviceTypes);
         }
 
-        public async  Task<Service_TypeResponse> GetByIdAsync(Guid id)
+        public async Task<Service_TypeResponse> GetByIdAsync(Guid id)
         {
             var serviceType = await _unitOfWork._service_TypeRepo.GetByIdAsync(id);
             return _mapper.Map<Service_TypeResponse>(serviceType);

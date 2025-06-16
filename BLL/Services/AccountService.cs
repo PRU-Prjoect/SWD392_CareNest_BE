@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BLL.Interfaces;
-using BLL.Mapper;
 using BOL.DTOs;
 using BOL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BLL.Services
 {
@@ -65,7 +57,7 @@ namespace BLL.Services
                 account.img_url = cloudinaryDTO.url;
                 account.img_url_id = cloudinaryDTO.publicId;
             }
-            
+
             await _unitOfWork._accountRepo.AddAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return _mapper.Map<AccountResponse>(account);
@@ -230,7 +222,7 @@ namespace BLL.Services
         public async Task<Account> UpdateAccount(Guid id, UpdateAccountRequest updateAccountRequest)
         {
             var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
-            if(account == null)
+            if (account == null)
             {
                 return null;
             }

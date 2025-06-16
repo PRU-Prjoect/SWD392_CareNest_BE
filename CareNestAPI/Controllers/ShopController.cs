@@ -2,7 +2,6 @@
 using BOL.DTOs;
 using DAL;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareNestAPI.Controllers
@@ -39,7 +38,6 @@ namespace CareNestAPI.Controllers
 
         // POST: api/shop/register/{accountId}
         [HttpPost("register")]
-        [Authorize]
         public async Task<IActionResult> RegisterShop([FromBody] ShopRequest shopDto)
         {
             var result = await _shopService.RegisterShopAsync(shopDto);

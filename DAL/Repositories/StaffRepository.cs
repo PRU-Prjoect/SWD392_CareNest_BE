@@ -1,11 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
@@ -24,8 +19,8 @@ namespace DAL.Repositories
         public async Task<List<Staff>> GetAllStaff()
         {
             return await _context.Staff
-                .Include(s => s.account) 
-                .Include(s => s.shop).ToListAsync(); 
+                .Include(s => s.account)
+                .Include(s => s.shop).ToListAsync();
 
         }
     }

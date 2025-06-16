@@ -4,12 +4,6 @@ using BOL.DTOs;
 using BOL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services
 {
@@ -122,10 +116,10 @@ namespace BLL.Services
                 Cancel = CancelTotal,
                 InProgress = InProgressToTal,
                 NoProgress = NoProgressTotal,
-                FinishPercent = (FinishTotal*100)/Total,
-                CancelPercent = (CancelTotal*100)/Total,
-                InProgressPercent = (InProgressToTal*100)/Total,
-                NoProgressPercent = (NoProgressTotal*100)/Total,
+                FinishPercent = (FinishTotal * 100) / Total,
+                CancelPercent = (CancelTotal * 100) / Total,
+                InProgressPercent = (InProgressToTal * 100) / Total,
+                NoProgressPercent = (NoProgressTotal * 100) / Total,
 
             };
             return appointmentReport;

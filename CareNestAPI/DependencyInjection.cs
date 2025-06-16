@@ -4,13 +4,12 @@ using BLL.Services;
 using BOL.Config;
 using DAL.Interfaces;
 using DAL.Repositories;
-using System.Configuration;
 
 namespace CareNestAPI
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection Services (this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection Services(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

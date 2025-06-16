@@ -1,12 +1,9 @@
 ﻿using BLL.Interfaces;
-using BLL.Services;
 using BOL.DTOs;
 using BOL.Enums;
 using DAL;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CareNestAPI.Controllers
 {
