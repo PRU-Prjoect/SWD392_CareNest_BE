@@ -58,16 +58,12 @@ namespace CareNestAPI.Controllers
         // POST: api/service-type
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateServiceType(Service_TypeDTO serviceTypeDTO)
+        public async Task<IActionResult> CreateServiceType([FromForm]  Service_TypeRequest serviceTypeDTO)
         {
             try
             {
                 var result = await _service_TypeService.CreateAsync(serviceTypeDTO);
-                if (result)
-                {
-                    return CreatedAtAction(nameof(GetServiceTypeById), new { id = serviceTypeDTO.id }, serviceTypeDTO);
-                }
-                return BadRequest();
+                return Ok(new { message = "Registration Success", data = result });
             }
             catch (Exception ex)
             {
@@ -76,22 +72,13 @@ namespace CareNestAPI.Controllers
         }
 
         // PUT: api/service-type/{id}
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize]
-        public async Task<IActionResult> UpdateServiceType(Guid id, Service_TypeDTO serviceTypeDTO)
+        public async Task<IActionResult> UpdateServiceType([FromForm]  Service_TypeRequest serviceTypeDTO)
         {
-            if (id != serviceTypeDTO.id)
-            {
-                return BadRequest();
-            }
-
             try
             {
                 var result = await _service_TypeService.UpdateAsync(serviceTypeDTO);
-                if (!result)
-                {
-                    return NotFound();
-                }
                 return Ok(); // 204 No Content
             }
             catch (Exception ex)

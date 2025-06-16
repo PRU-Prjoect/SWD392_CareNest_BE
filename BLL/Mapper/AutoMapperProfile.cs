@@ -20,7 +20,8 @@ namespace BLL.Mapper
 
             CreateMap<Pet_Type, Pet_TypeDTO>().ReverseMap();
 
-            CreateMap<Service_Type, Service_TypeDTO>().ReverseMap();
+            CreateMap<Service_Type, Service_TypeRequest>().ReverseMap();
+            CreateMap<Service_Type, Service_TypeResponse>().ReverseMap();
 
             CreateMap<Shop, ShopRequest>().ReverseMap();
             CreateMap<Shop, ShopResponse>().ReverseMap();
