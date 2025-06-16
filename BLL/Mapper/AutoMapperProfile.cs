@@ -46,6 +46,8 @@ namespace BLL.Mapper
 
             CreateMap<Room_Booking, Room_BookingDTO>().ReverseMap();
 
+            CreateMap<Notification, NotificationDTO>().ReverseMap();
+
         }
     }
 }
