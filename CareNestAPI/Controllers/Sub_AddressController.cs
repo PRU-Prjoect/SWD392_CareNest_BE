@@ -8,7 +8,7 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class Sub_AddressController : ControllerBase
     {
         private readonly ISub_AddressService _sub_AddressService;
@@ -46,6 +46,7 @@ namespace CareNestAPI.Controllers
 
         // POST: api/Sub_Address
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] Sub_AddressDTO subAddressDto)
         {
             var success = await _sub_AddressService.CreateAsync(subAddressDto);
@@ -55,6 +56,7 @@ namespace CareNestAPI.Controllers
 
         // PUT: api/Sub_Address
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] Sub_AddressDTO subAddressDto)
         {
             var success = await _sub_AddressService.UpdateAsync(subAddressDto);
@@ -64,6 +66,7 @@ namespace CareNestAPI.Controllers
 
         // DELETE: api/Sub_Address/{id}
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var success = await _sub_AddressService.DeleteAsync(id);

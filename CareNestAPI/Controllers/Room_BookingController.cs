@@ -1,12 +1,14 @@
 ﻿using BLL.Interfaces;
 using BOL.DTOs;
 using DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Room_BookingController : ControllerBase
     {
         private readonly IRoom_BookingService _room_BookingService;

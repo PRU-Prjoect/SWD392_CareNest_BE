@@ -8,7 +8,7 @@ namespace CareNestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
@@ -22,6 +22,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllAsync(
             [FromQuery] string? name,
             [FromQuery] string? gender,
@@ -32,6 +33,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpGet("{accountId}")]
+        [Authorize]
         public async Task<IActionResult> GetById(Guid accountId)
         {
             var customer = await _customerService.GetByIdAsync(accountId);
@@ -42,6 +44,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPost("{accountId}")]
+
         public async Task<IActionResult> Create(Guid accountId, [FromBody] CustomerDTO customerDto)
         {
             var result = await _customerService.CreateAsync(accountId, customerDto);
@@ -52,6 +55,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] CustomerDTO customerDto)
         {
             var result = await _customerService.UpdateAsync(customerDto);
