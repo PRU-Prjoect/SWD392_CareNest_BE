@@ -66,8 +66,6 @@ namespace BLL.Services
                 // Cập nhật vai trò của tài khoản thành "shop"
                 customerAccount.role = Role.Customer;
 
-                // Cập nhật tài khoản
-                await _unitOfWork._accountRepo.UpdateAsync(customerAccount);
 
                 // Thêm cửa hàng vào cơ sở dữ liệu
                 await _unitOfWork._customerRepo.AddAsync(customer);

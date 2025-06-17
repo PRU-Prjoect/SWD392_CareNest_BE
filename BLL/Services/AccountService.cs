@@ -223,7 +223,16 @@ namespace BLL.Services
             {
                 return null;
             }
-            account = _mapper.Map(updateAccountRequest, account);
+            if (updateAccountRequest.username != null)
+            {
+                var check = await _unitOfWork._accountRepo.GetByUsernameAsync(updateAccountRequest.username);
+                if (check == null)
+                {
+                    account.username = updateAccountRequest.username;
+                }
+            
+            }
+            account.email = updateAccountRequest.email ?? account.email;
             await _unitOfWork.SaveChangeAsync();
             return account;
         }
