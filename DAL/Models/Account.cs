@@ -18,6 +18,9 @@ namespace DAL.Models
         public bool is_active { get; set; }
         public string? img_url { get; set; }
         public string? img_url_id { get; set; }
+        public string? BANK_ACCOUNT_NO { get; set; }
+        public string? BANK_ACCOUNT_NAME { get; set; }
+        public string? BANK_ID { get; set; }
         public string? otp { get; set; }
         public DateTime? otpExpired { get; set; }
 

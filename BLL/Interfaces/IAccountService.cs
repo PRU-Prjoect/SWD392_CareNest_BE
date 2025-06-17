@@ -19,5 +19,6 @@ namespace BLL.Interfaces
         public Task<Account> GetLoginAccount();
         public Task<bool> DeleteAccount(Guid id);
         public Task<Account> UpdateAccount(Guid id, UpdateAccountRequest updateAccountRequest);
+        public Task<string> GenerateVietQr(Guid id, int ammount, string? description);
     }
 }

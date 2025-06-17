@@ -6,6 +6,7 @@ using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using System.Web;
 
 namespace BLL.Services
 {
@@ -231,5 +232,37 @@ namespace BLL.Services
             await _unitOfWork.SaveChangeAsync();
             return account;
         }
+        public async Task<string> GenerateVietQr(Guid id, int ammount, string? description)
+        {
+            var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
+            if (account == null)
+            {
+                return null;
+            }
+            if (account.BANK_ACCOUNT_NO == null || account.BANK_ID == null || account.BANK_ACCOUNT_NAME == null)
+            {
+                return null;
+            }
+
+            var uriBuilder = new UriBuilder("https://img.vietqr.io")
+            {
+                Path = $"image/{account.BANK_ID}-{account.BANK_ACCOUNT_NO}-compact2.jpg"
+            };
+
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query["amount"] = ammount.ToString();
+            if (!string.IsNullOrEmpty(description))
+            {
+                query["addInfo"] = description;
+            }
+            query["accountName"] = account.BANK_ACCOUNT_NAME.ToString();
+
+            uriBuilder.Query = query.ToString();
+
+            return uriBuilder.ToString();
+
+
+        }
+
     }
 }

@@ -13,6 +13,9 @@ namespace BOL.DTOs
         [Required]
         [EmailAddress]
         public string email { get; set; }
+        public string? BANK_ACCOUNT_NO { get; set; }
+        public string? BANK_ACCOUNT_NAME { get; set; }
+        public string? BANK_ID { get; set; }
         public IFormFile? img { get; set; }
 
     }
