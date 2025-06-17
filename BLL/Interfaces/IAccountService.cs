@@ -13,7 +13,7 @@ namespace BLL.Interfaces
         public Task<bool> SendOtpAsync(string email);
         public Task<bool> ConfirmOtpAsync(string email, string otp);
         public Task<bool> ActivateAccount(Guid id);
-        public Task<AccountRequest> UpdateImage(Guid id, IFormFile? file);
+        public Task<Account> UpdateImage(Guid id, IFormFile? file);
         public Task<List<Account>> GetAllAccount();
         public Task<Account> GetAccountById(Guid id);
         public Task<Account> GetLoginAccount();

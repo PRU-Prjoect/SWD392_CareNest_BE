@@ -138,7 +138,7 @@ namespace BLL.Services
             return true;
         }
 
-        public async Task<AccountRequest> UpdateImage(Guid id, IFormFile? file)
+        public async Task<Account> UpdateImage(Guid id, IFormFile? file)
         {
             CloudinaryDTO cloudinaryDTO = new CloudinaryDTO();
             var account = await _unitOfWork._accountRepo.GetByIdAsync(id);
@@ -171,7 +171,7 @@ namespace BLL.Services
 
 
             await _unitOfWork.SaveChangeAsync();
-            return _mapper.Map<AccountRequest>(account);
+            return account;
 
         }
 
