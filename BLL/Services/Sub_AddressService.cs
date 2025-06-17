@@ -59,9 +59,15 @@ namespace BLL.Services
 
         public async Task<bool> UpdateAsync(Sub_AddressDTO subAddressDto)
         {
-            var subAddress = _mapper.Map<Sub_Address>(subAddressDto);
+            var check = await _unitOfWork._sub_AddressRepo.GetByIdAsync(subAddressDto.id)
+                ?? throw new Exception();
 
-            await _unitOfWork._sub_AddressRepo.UpdateAsync(subAddress);
+            check.phone = subAddressDto.phone;
+            check.name = subAddressDto.name;
+            check.is_default = subAddressDto.is_default;
+            check.address_name = subAddressDto.address_name;
+            check.updated_at = DateTime.UtcNow;
+    
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

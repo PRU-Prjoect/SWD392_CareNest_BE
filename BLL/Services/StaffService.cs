@@ -71,7 +71,6 @@ namespace BLL.Services
         {
             var staff = _mapper.Map<Staff>(staffDto);
 
-            // Không gán staff.account hoặc staff.shop ở đây!
             await _unitOfWork._staffRepo.AddAsync(staff);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
@@ -80,9 +79,15 @@ namespace BLL.Services
         public async Task<bool> UpdateAsync(StaffDTO staffDto)
         {
 
-            var staff = _mapper.Map<Staff>(staffDto);
-
-            await _unitOfWork._staffRepo.UpdateAsync(staff);
+            var check = await _unitOfWork._staffRepo.GetByIdAsync(staffDto.account_id)
+                ?? throw new Exception();
+            check.position = staffDto.position;
+            check.updated_at = DateTime.UtcNow;
+            check.hired_at = staffDto.hired_at;
+            check.full_name = staffDto.full_name;
+            check.birthday = staffDto.birthday;
+            check.shop_address_id = staffDto.shop_address_id;
+           
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
@@ -102,7 +107,6 @@ namespace BLL.Services
             if (staff == null) return false;
 
             staff.account.is_active = false;
-            await _unitOfWork._staffRepo.UpdateAsync(staff);
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }

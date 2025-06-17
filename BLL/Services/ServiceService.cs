@@ -93,12 +93,14 @@ namespace BLL.Services
         {
             var check = await _unitOfWork._serviceRepo.GetByIdAsync(serviceDto.id)
                 ?? throw new Exception();
+
             check.limit_per_hour = serviceDto.limit_per_hour;
             check.name = serviceDto.name;   
             check.description = serviceDto.description;
             check.updated_at = DateTime.UtcNow;
             check.purchases = serviceDto.purchases;
             check.Price = serviceDto.Price;
+
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
@@ -121,10 +123,6 @@ namespace BLL.Services
 
             // Đặt trạng thái không hoạt động cho dịch vụ
             service.is_active = false;
-
-            // Cập nhật thông tin dịch vụ trong cơ sở dữ liệu
-            await _unitOfWork._serviceRepo.UpdateAsync(service);
-
             // Lưu thay đổi vào cơ sở dữ liệu và trả về kết quả
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
@@ -151,8 +149,6 @@ namespace BLL.Services
             // Cập nhật số sao trung bình
             service.Star = newRating; // Tổng số sao hiện tại
 
-            // Cập nhật dịch vụ
-            await _unitOfWork._serviceRepo.UpdateAsync(service);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
@@ -168,8 +164,6 @@ namespace BLL.Services
             // Cập nhật số lượng cuộc hẹn
             service.purchases = appointmentCount;
 
-            // Cập nhật dịch vụ
-            await _unitOfWork._serviceRepo.UpdateAsync(service);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
     }

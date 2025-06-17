@@ -58,9 +58,6 @@ namespace BLL.Services
                 // Cập nhật vai trò của tài khoản thành "shop"
                 shopAccount.role = Role.Shop;
 
-                // Cập nhật tài khoản
-                await _unitOfWork._accountRepo.UpdateAsync(shopAccount);
-
                 // Thêm cửa hàng vào cơ sở dữ liệu
                 await _unitOfWork._shopRepo.AddAsync(shop);
 
@@ -74,10 +71,14 @@ namespace BLL.Services
         // Update shop
         public async Task<bool> UpdateAsync(ShopRequest shopUpdateDto)
         {
+            var check = await _unitOfWork._shopRepo.GetByIdAsync(shopUpdateDto.account_id)
+                ?? throw new Exception();
 
-            var shop = _mapper.Map<Shop>(shopUpdateDto);
-
-            await _unitOfWork._shopRepo.UpdateAsync(shop);
+            check.updated_at = DateTime.UtcNow;
+            check.description = shopUpdateDto.description;
+            check.name = shopUpdateDto.name;
+            check.status = shopUpdateDto.status;
+            check.working_day = shopUpdateDto.working_day;
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
