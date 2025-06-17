@@ -4,6 +4,7 @@ namespace BOL.DTOs
 {
     public class AppointmentsDTO
     {
+        public Guid id { get; set; } 
         public Guid customer_id { get; set; }
         public string location_type { get; set; }
         public AppointmentStatus status { get; set; }

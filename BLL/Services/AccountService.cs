@@ -73,11 +73,10 @@ namespace BLL.Services
 
             account.password = BCrypt.Net.BCrypt.HashPassword(password);
             account.updated_at = DateTime.UtcNow;
-
-            await _unitOfWork._accountRepo.UpdateAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return true;
         }
+
         public async Task<bool> SendOtpAsync(string email)
         {
             var account = await _unitOfWork._accountRepo.GetByEmailAsync(email);
@@ -123,7 +122,6 @@ namespace BLL.Services
             account.password = BCrypt.Net.BCrypt.HashPassword(password);
             account.updated_at = DateTime.UtcNow;
 
-            await _unitOfWork._accountRepo.UpdateAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return true;
         }
@@ -136,7 +134,6 @@ namespace BLL.Services
                 return false;
             }
             account.is_active = true;
-            await _unitOfWork._accountRepo.UpdateAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return true;
         }
@@ -214,7 +211,7 @@ namespace BLL.Services
             {
                 return false;
             }
-            await _unitOfWork._accountRepo.UpdateAsync(account);
+            await _unitOfWork._accountRepo.RemoveAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return true;
         }
@@ -227,7 +224,6 @@ namespace BLL.Services
                 return null;
             }
             account = _mapper.Map(updateAccountRequest, account);
-            await _unitOfWork._accountRepo.UpdateAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return account;
         }

@@ -55,16 +55,22 @@ namespace BLL.Services
 
         public async Task<bool> CreateAsync(AppointmentsDTO appointmentDto)
         {
+            appointmentDto.id = Guid.NewGuid(); // Tạo ID mới cho cuộc hẹn
             var appointment = _mapper.Map<Appointments>(appointmentDto);
-            appointment.id = Guid.NewGuid(); // Tạo ID mới cho cuộc hẹn
             await _unitOfWork._appointmentsRepo.AddAsync(appointment);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
         public async Task<bool> UpdateAsync(AppointmentsDTO appointmentDto)
         {
-            var appointment = _mapper.Map<Appointments>(appointmentDto);
-            await _unitOfWork._appointmentsRepo.UpdateAsync(appointment);
+            var existingAppointment = await _unitOfWork._appointmentsRepo.GetByIdAsync(appointmentDto.id)
+                ?? throw new Exception();
+            existingAppointment.customer_id = appointmentDto.customer_id;
+            existingAppointment.start_time = appointmentDto.start_time;
+            existingAppointment.end_time = appointmentDto.end_time;
+            existingAppointment.location_type = appointmentDto.location_type;
+            existingAppointment.status = appointmentDto.status;
+            existingAppointment.notes = appointmentDto.notes;
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
@@ -73,7 +79,6 @@ namespace BLL.Services
             var appointment = await _unitOfWork._appointmentsRepo.GetByIdAsync(id);
             if (appointment == null) return false;
 
-            await _unitOfWork._appointmentsRepo.UpdateAsync(appointment);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

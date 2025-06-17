@@ -80,9 +80,19 @@ namespace BLL.Services
 
         public async Task<bool> UpdateAsync(CustomerDTO customerDto)
         {
-            var customer = _mapper.Map<Customer>(customerDto);
-            await _unitOfWork._customerRepo.UpdateAsync(customer);
-            return await _unitOfWork.SaveChangeAsync() > 0;
+            var checkExist = await _unitOfWork._customerRepo.GetByIdAsync(customerDto.account_id);
+            if (checkExist == null)
+            {
+                return false; // Không tìm thấy khách hàng
+            }
+
+            checkExist.updated_at = DateTime.UtcNow;
+            checkExist.gender = customerDto.gender;
+            checkExist.birthday = customerDto.birthday;
+            checkExist.full_name = customerDto.full_name;
+
+             await _unitOfWork.SaveChangeAsync() ;
+            return true;
         }
     }
 }
