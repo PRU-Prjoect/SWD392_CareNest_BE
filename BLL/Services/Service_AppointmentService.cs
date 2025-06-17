@@ -58,8 +58,14 @@ namespace BLL.Services
 
         public async Task<bool> UpdateAsync(Service_AppointmentDTO dto)
         {
-            var entity = _mapper.Map<Service_Appointment>(dto);
-            await _unitOfWork._service_AppointmentRepo.UpdateAsync(entity);
+            var entity = await _unitOfWork._service_AppointmentRepo.GetByIdAsync(dto.service_id)
+                ?? throw new Exception();
+
+            entity.updated_at = DateTime.UtcNow;
+            entity.start_time = dto.start_time;
+            entity.end_time = dto.end_time;
+            entity.rating_id = dto.rating_id;
+            entity.room_id = dto.room_id;   
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

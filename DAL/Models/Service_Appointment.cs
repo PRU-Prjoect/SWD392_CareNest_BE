@@ -6,10 +6,11 @@ namespace DAL.Models
     public class Service_Appointment : BaseEntity
     {
         [Key]
+        public Guid id { get; set; }
         [ForeignKey("service")]
         public Guid service_id { get; set; }
         public DateTime start_time { get; set; }
-        public DateTime end_type { get; set; }
+        public DateTime end_time { get; set; }
         [ForeignKey("appointment")]
         public Guid appointment_id { get; set; }
         [ForeignKey("rating")]

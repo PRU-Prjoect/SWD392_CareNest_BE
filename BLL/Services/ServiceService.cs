@@ -91,8 +91,14 @@ namespace BLL.Services
 
         public async Task<bool> UpdateAsync(ServiceDTO serviceDto)
         {
-            var service = _mapper.Map<Service>(serviceDto);
-            await _unitOfWork._serviceRepo.UpdateAsync(service);
+            var check = await _unitOfWork._serviceRepo.GetByIdAsync(serviceDto.id)
+                ?? throw new Exception();
+            check.limit_per_hour = serviceDto.limit_per_hour;
+            check.name = serviceDto.name;   
+            check.description = serviceDto.description;
+            check.updated_at = DateTime.UtcNow;
+            check.purchases = serviceDto.purchases;
+            check.Price = serviceDto.Price;
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

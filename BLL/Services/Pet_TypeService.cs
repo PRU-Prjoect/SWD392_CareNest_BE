@@ -61,9 +61,9 @@ namespace BLL.Services
             {
                 return false; // Pet type not found
             }
-
-            _mapper.Map(petTypeDTO, existingPetType);
-            await _unitOfWork._pet_TypeRepo.UpdateAsync(existingPetType);
+            existingPetType.updated_at = DateTime.UtcNow;
+            existingPetType.name = petTypeDTO.name;
+            
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
     }

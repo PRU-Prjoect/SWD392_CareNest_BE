@@ -73,7 +73,6 @@ namespace BLL.Services
             petServiceRoom.room_id = petServiceRoomDto.room_id;
             petServiceRoom.owner_id = petServiceRoomDto.is_service ? petServiceRoomDto.service_id : petServiceRoomDto.room_id;
 
-            await _unitOfWork._pet_Service_RoomRepo.UpdateAsync(petServiceRoom);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

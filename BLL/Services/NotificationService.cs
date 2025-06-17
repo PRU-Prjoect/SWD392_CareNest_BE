@@ -71,7 +71,6 @@ namespace BLL.Services
             entity.is_read = notificationDTO.is_read;
             entity.updated_at = DateTime.UtcNow;
 
-            await _unitOfWork._notificationRepo.UpdateAsync(entity);
             await _unitOfWork.SaveChangeAsync();
 
             return _mapper.Map<NotificationDTO>(entity);

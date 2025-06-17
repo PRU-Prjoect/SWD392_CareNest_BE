@@ -218,7 +218,7 @@ namespace CareNestAPI.Controllers
 
         }
 
-        [HttpGet("/id/{id}")]
+        [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetAccountById(Guid id)
         {

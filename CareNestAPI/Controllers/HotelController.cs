@@ -70,7 +70,7 @@ namespace CareNestAPI.Controllers
                 {
                     return BadRequest("Unable to create hotel.");
                 }
-                return CreatedAtAction(nameof(GetHotelById), new { id = hotelDto.id }, hotelDto);
+                return Ok("Created successfully");
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace CareNestAPI.Controllers
                 {
                     return BadRequest("Unable to update hotel.");
                 }
-                return NoContent();
+                return Ok("Updated successfully");
             }
             catch (Exception ex)
             {
@@ -115,7 +115,7 @@ namespace CareNestAPI.Controllers
                 {
                     return NotFound();
                 }
-                return NoContent();
+                return Ok("Delete Sucessfully");
             }
             catch (Exception ex)
             {

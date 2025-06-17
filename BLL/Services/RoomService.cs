@@ -58,8 +58,17 @@ namespace BLL.Services
 
         public async Task<bool> UpdateAsync(RoomDTO roomDto)
         {
-            var room = _mapper.Map<Room>(roomDto);
-            await _unitOfWork._roomRepo.UpdateAsync(room);
+            var check = await _unitOfWork._roomRepo.GetByIdAsync(roomDto.id)
+                ?? throw new Exception();
+           check.hotel_id= roomDto.hotel_id;
+           check.is_available = roomDto.is_available;
+           check.updated_at = DateTime.UtcNow;
+           check.room_type = roomDto.room_type;
+           check.room_number = roomDto.room_number;
+            check.max_capacity = roomDto.max_capacity;
+            check.daily_price = roomDto.daily_price;
+            check.amendities = roomDto.amendities;
+
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

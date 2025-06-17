@@ -85,7 +85,6 @@ namespace BLL.Services
                 entity.img_url = updated.url;
             }
 
-            await _unitOfWork._imageGalleryRepo.UpdateAsync(entity);
             await _unitOfWork.SaveChangeAsync();
             return _mapper.Map<ImageGalleryResponse>(entity);
         }
@@ -99,8 +98,7 @@ namespace BLL.Services
             {
                 await _cloudinaryService.DeleteImage(entity.img_url);
             }
-
-            await _unitOfWork._imageGalleryRepo.UpdateAsync(entity);
+            await _unitOfWork._imageGalleryRepo.RemoveAsync(entity);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
     }

@@ -4,6 +4,7 @@ namespace BOL.DTOs
 {
     public class RoomDTO
     {
+        public Guid id { get; set; }
         public int? room_number { get; set; }
         public int? room_type { get; set; }
         public int? max_capacity { get; set; }

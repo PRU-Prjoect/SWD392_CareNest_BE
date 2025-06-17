@@ -53,14 +53,24 @@ namespace BLL.Services
             var hotel = _mapper.Map<Hotel>(hotelDto);
             hotel.id = Guid.NewGuid(); // Ensure a new ID is generated
             await _unitOfWork._hotelRepo.AddAsync(hotel);
-            return await _unitOfWork.SaveChangeAsync() > 0;
+            await _unitOfWork.SaveChangeAsync();
+            return true;
         }
 
         public async Task<bool> UpdateAsync(HotelDTO hotelDto)
         {
-            var hotel = _mapper.Map<Hotel>(hotelDto);
-            await _unitOfWork._hotelRepo.UpdateAsync(hotel);
-            return await _unitOfWork.SaveChangeAsync() > 0;
+            var hotel = await _unitOfWork._hotelRepo.GetByIdAsync(hotelDto.id)
+                ?? throw new Exception();
+            
+            hotel.name = hotelDto.name;
+            hotel.updated_at = DateTime.UtcNow;
+            hotel.total_room = hotelDto.total_room;
+            hotel.available_room = hotelDto.available_room;
+            hotel.description = hotelDto.description;
+            hotel.is_active = hotelDto.is_active;
+
+            await _unitOfWork.SaveChangeAsync();
+            return true;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
@@ -68,8 +78,9 @@ namespace BLL.Services
             var hotel = await _unitOfWork._hotelRepo.GetByIdAsync(id);
             if (hotel == null) return false;
 
-            await _unitOfWork._hotelRepo.UpdateAsync(hotel);
-            return await _unitOfWork.SaveChangeAsync() > 0;
+            await _unitOfWork._hotelRepo.RemoveAsync(hotel);
+            await _unitOfWork.SaveChangeAsync();
+            return true;
         }
     }
 }

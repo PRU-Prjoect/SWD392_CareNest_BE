@@ -33,15 +33,20 @@ namespace BLL.Services
         public async Task<bool> CreateAsync(RatingDTO ratingDto)
         {
             var rating = _mapper.Map<Rating>(ratingDto);
-            rating.id = Guid.NewGuid(); // Ensure a new ID is generated
+            rating.id = Guid.NewGuid(); 
             await _unitOfWork._ratingRepo.AddAsync(rating);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
         public async Task<bool> UpdateAsync(RatingDTO ratingDto)
         {
+            var existingRating = await _unitOfWork._ratingRepo.GetByIdAsync(ratingDto.id)
+                ?? throw new Exception();
+            existingRating.updated_at = DateTime.UtcNow;
+            existingRating.star = ratingDto.star;
+            existingRating.customer_id = ratingDto.customer_id;
+            existingRating.comment = ratingDto.comment;
             var rating = _mapper.Map<Rating>(ratingDto);
-            await _unitOfWork._ratingRepo.UpdateAsync(rating);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

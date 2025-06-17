@@ -53,6 +53,7 @@ namespace BLL.Services
         public async Task<bool> CreateAsync(Room_BookingDTO dto)
         {
             var booking = _mapper.Map<Room_Booking>(dto);
+            booking.id = Guid.NewGuid(); // Ensure a new ID is generated
             await _unitOfWork._room_BookingRepo.AddAsync(booking);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
@@ -63,7 +64,16 @@ namespace BLL.Services
             if (existing == null) return false;
 
             _mapper.Map(dto, existing); // map changes
-            await _unitOfWork._room_BookingRepo.UpdateAsync(existing);
+            existing.check_out_date = dto.check_out_date ; // handle nullable check_out_date
+            existing.updated_at = DateTime.UtcNow; // update timestamp
+            existing.check_in_date = dto.check_in_date;
+            existing.total_night =(int) (dto.check_out_date - dto.check_in_date).TotalDays;
+            existing.status = dto.status;
+            existing.total_amount = dto.total_amount;
+            existing.customer_id = dto.customer_id;
+            existing.feeding_schedule = dto.feeding_schedule;
+            existing.feeding_schedule = dto.feeding_schedule;
+
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
