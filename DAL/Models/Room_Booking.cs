@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Room_Booking : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         [ForeignKey("room")]
         public Guid room_detail_id { get; set; }
         [ForeignKey("customer")]

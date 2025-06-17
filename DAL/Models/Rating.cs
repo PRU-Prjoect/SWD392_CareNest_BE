@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Rating : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         [ForeignKey("customer")]
         public Guid customer_id { get; set; }
         public float? star { get; set; }

@@ -19,6 +19,7 @@ namespace BLL.Services
         public async Task<bool> CreateAsync(Pet_TypeDTO petTypeDTO)
         {
             var petType = _mapper.Map<Pet_Type>(petTypeDTO);
+            petType.id = Guid.NewGuid(); // Ensure a new ID is generated
             await _unitOfWork._pet_TypeRepo.AddAsync(petType);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }

@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Sub_Address : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; }
         [Required]
         public string name { get; set; }
         [ForeignKey("shop")]

@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Hotel : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }
         public int? total_room { get; set; }

@@ -46,8 +46,7 @@ namespace BLL.Services
         public async Task<ImageGalleryResponse> CreateAsync(ImageGalleryRequest dto)
         {
             var entity = _mapper.Map<ImageGallery>(dto);
-            entity.id = Guid.NewGuid(); // Assign new ID
-
+            entity.id = Guid.NewGuid();
             if (dto.img != null)
             {
                 var upload = await _cloudinaryService.UploadImage(dto.img);

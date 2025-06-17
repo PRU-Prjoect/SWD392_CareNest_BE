@@ -5,7 +5,7 @@ namespace DAL.Models
     public class ImageGallery : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         public string? name { get; set; }
         public string? img_url { get; set; }
         public string? owner_id { get; set; }

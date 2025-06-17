@@ -52,7 +52,7 @@ namespace BLL.Services
             {
                 // Tạo một thực thể mới từ DTO
                 var petServiceRoom = _mapper.Map<Pet_Service_Room>(petServiceRoomDto);
-
+                petServiceRoom.id = Guid.NewGuid(); // Tạo ID mới cho Pet_Service_Room
                 // Xác định owner_id dựa trên is_service
                 petServiceRoom.owner_id = petServiceRoomDto.is_service ? petServiceRoomDto.service_id : petServiceRoomDto.room_id;
 

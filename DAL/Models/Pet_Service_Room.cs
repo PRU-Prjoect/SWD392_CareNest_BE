@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Pet_Service_Room : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         public Guid owner_id { get; set; }
         [ForeignKey("pet_type")]
         public Guid pet_type_id { get; set; }

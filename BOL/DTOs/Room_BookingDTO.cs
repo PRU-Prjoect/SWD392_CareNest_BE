@@ -4,7 +4,7 @@ namespace BOL.DTOs
 {
     public class Room_BookingDTO
     {
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         [ForeignKey("room")]
         public Guid room_detail_id { get; set; }
         [ForeignKey("customer")]

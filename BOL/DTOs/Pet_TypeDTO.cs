@@ -5,8 +5,7 @@ namespace BOL.DTOs
     public class Pet_TypeDTO
     {
         [Required]
-        public Guid id { get; set; } = Guid.NewGuid();
-        [Required]
+        public Guid id { get; set; } 
         public string? name { get; set; }
     }
 }

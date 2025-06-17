@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Service : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         public string name { get; set; }
         public bool is_active { get; set; }
         [ForeignKey("shop")]

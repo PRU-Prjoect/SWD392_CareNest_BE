@@ -91,7 +91,6 @@ namespace BLL.Services
             account.otp = otp;
             account.otpExpired = DateTime.UtcNow.AddMinutes(10);
 
-            await _unitOfWork._accountRepo.UpdateAsync(account);
             await _unitOfWork.SaveChangeAsync();
 
             string subject = "OTP Verify";

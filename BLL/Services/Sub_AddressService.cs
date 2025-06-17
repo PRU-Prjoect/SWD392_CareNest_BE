@@ -52,7 +52,7 @@ namespace BLL.Services
         public async Task<bool> CreateAsync(Sub_AddressDTO subAddressDto)
         {
             var subAddress = _mapper.Map<Sub_Address>(subAddressDto);
-
+            subAddress.id = Guid.NewGuid(); // Ensure a new ID is generated
             await _unitOfWork._sub_AddressRepo.AddAsync(subAddress);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }

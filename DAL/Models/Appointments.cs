@@ -7,7 +7,7 @@ namespace DAL.Models
     public class Appointments : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         [ForeignKey("customer")]
         public Guid customer_id { get; set; }
         public string location_type { get; set; }

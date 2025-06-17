@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Notification : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         [ForeignKey("account")]
         public Guid receiver_id { get; set; }
         public string? description { get; set; }

@@ -6,7 +6,7 @@ namespace DAL.Models
     public class Account : BaseEntity
     {
         [Key]
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; }
         [Required]
         public string username { get; set; }
         [Required]

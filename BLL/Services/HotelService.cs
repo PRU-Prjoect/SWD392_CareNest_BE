@@ -51,6 +51,7 @@ namespace BLL.Services
         public async Task<bool> CreateAsync(HotelDTO hotelDto)
         {
             var hotel = _mapper.Map<Hotel>(hotelDto);
+            hotel.id = Guid.NewGuid(); // Ensure a new ID is generated
             await _unitOfWork._hotelRepo.AddAsync(hotel);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }

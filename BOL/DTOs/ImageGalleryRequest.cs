@@ -9,7 +9,7 @@ namespace BOL.DTOs
 {
     public class ImageGalleryRequest
     {
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         public string? name { get; set; }
         public IFormFile? img { get; set; }
         public string? owner_id { get; set; }
