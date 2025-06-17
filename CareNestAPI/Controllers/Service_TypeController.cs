@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using BOL.DTOs;
+using BOL.Enums;
 using DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,13 @@ namespace CareNestAPI.Controllers
 
         // GET: api/service-type
         [HttpGet]
-        public async Task<IActionResult> GetAllServiceTypes()
+        public async Task<IActionResult> GetAllServiceTypes(
+            string? name = null,
+            bool? is_public = null)
         {
             try
             {
-                var serviceTypes = await _service_TypeService.GetAllAsync();
+                var serviceTypes = await _service_TypeService.GetAllAsync(name, is_public);
                 return Ok(serviceTypes);
             }
             catch (Exception ex)
@@ -70,14 +73,14 @@ namespace CareNestAPI.Controllers
         }
 
         // PUT: api/service-type/{id}
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateServiceType([FromForm] Service_TypeRequest serviceTypeDTO)
+        public async Task<IActionResult> UpdateServiceType(string id,[FromForm] Service_TypeRequest serviceTypeDTO)
         {
             try
             {
-                var result = await _service_TypeService.UpdateAsync(serviceTypeDTO);
-                return Ok(); // 204 No Content
+                var result = await _service_TypeService.UpdateAsync( id,serviceTypeDTO);
+                return Ok(new { message = "Update Success" });
             }
             catch (Exception ex)
             {
@@ -97,7 +100,7 @@ namespace CareNestAPI.Controllers
                 {
                     return NotFound();
                 }
-                return NoContent(); // 204 No Content
+                return Ok(new { message = "Delete Success" }); 
             }
             catch (Exception ex)
             {

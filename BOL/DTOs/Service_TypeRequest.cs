@@ -5,9 +5,6 @@ namespace BOL.DTOs
 {
     public class Service_TypeRequest
     {
-        [Required]
-        public Guid id { get; set; } = Guid.NewGuid();
-        [Required]
         public string? name { get; set; }
         public string? description { get; set; }
         public IFormFile? img { get; set; }

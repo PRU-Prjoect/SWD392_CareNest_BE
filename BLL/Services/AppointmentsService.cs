@@ -72,7 +72,7 @@ namespace BLL.Services
             var appointment = await _unitOfWork._appointmentsRepo.GetByIdAsync(id);
             if (appointment == null) return false;
 
-            await _unitOfWork._appointmentsRepo.RemoveAsync(appointment);
+            await _unitOfWork._appointmentsRepo.UpdateAsync(appointment);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 

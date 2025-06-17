@@ -21,6 +21,7 @@ namespace BLL.Services
 
         public async Task<Service_TypeResponse> CreateAsync(Service_TypeRequest serviceTypeDTO)
         {
+            
             serviceTypeDTO.is_public = false;
             var serviceType = _mapper.Map<Service_Type>(serviceTypeDTO);
 
@@ -31,6 +32,7 @@ namespace BLL.Services
             }
 
             var entity = _mapper.Map<Service_Type>(serviceType);
+            entity.id = Guid.NewGuid(); 
             await _unitOfWork._service_TypeRepo.AddAsync(entity);
             await _unitOfWork.SaveChangeAsync();
             return _mapper.Map<Service_TypeResponse>(entity);
@@ -47,11 +49,26 @@ namespace BLL.Services
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
-        public async Task<List<Service_TypeResponse>> GetAllAsync()
+        public async Task<List<Service_TypeResponse>> GetAllAsync(string? name, bool? is_public)
         {
             var serviceTypes = await _unitOfWork._service_TypeRepo.GetAllAsync();
-            return _mapper.Map<List<Service_TypeResponse>>(serviceTypes);
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                serviceTypes = serviceTypes.Where(x => x.name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            // Áp dụng filter theo is_public nếu có
+            if (is_public.HasValue)
+            {
+                serviceTypes = serviceTypes.Where(x => x.is_public == is_public.Value).ToList();
+            }
+
+            List<Service_TypeResponse> result = _mapper.Map<List<Service_TypeResponse>>(serviceTypes);
+
+            return result;
         }
+
 
         public async Task<Service_TypeResponse> GetByIdAsync(Guid id)
         {
@@ -59,12 +76,15 @@ namespace BLL.Services
             return _mapper.Map<Service_TypeResponse>(serviceType);
         }
 
-        public async Task<Service_TypeResponse> UpdateAsync(Service_TypeRequest serviceTypeDTO)
+        public async Task<Service_TypeResponse> UpdateAsync(string id, Service_TypeRequest serviceTypeDTO)
         {
-            serviceTypeDTO.is_public = false; // Default value
-            var serviceType = _mapper.Map<Service_Type>(serviceTypeDTO);
+            Guid checkId = Guid.Parse(id);
+            var serviceType = await _unitOfWork._service_TypeRepo.GetByIdAsync(checkId) ??
+                throw new Exception("Service Type not found");
+
             CloudinaryDTO cloudinaryDTO = new CloudinaryDTO();
 
+            // Xử lý image logic như cũ
             if (serviceTypeDTO.img == null)
             {
                 if (serviceType.img_url != null)
@@ -83,11 +103,15 @@ namespace BLL.Services
                 cloudinaryDTO = await _cloudinaryService.UpdateImage(serviceTypeDTO.img, serviceType.img_url);
                 serviceType.img_url = cloudinaryDTO.url;
             }
-            var entity = _mapper.Map<Service_Type>(serviceType);
-            await _unitOfWork._service_TypeRepo.UpdateAsync(entity);
+
+            serviceType.name = serviceTypeDTO.name;
+            serviceType.description = serviceTypeDTO.description;
+            serviceType.is_public = serviceTypeDTO.is_public;
+
             await _unitOfWork.SaveChangeAsync();
-            return _mapper.Map<Service_TypeResponse>(entity);
+            return _mapper.Map<Service_TypeResponse>(serviceType);
         }
+
 
 
 

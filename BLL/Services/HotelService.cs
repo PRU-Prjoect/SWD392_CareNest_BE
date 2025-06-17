@@ -67,7 +67,7 @@ namespace BLL.Services
             var hotel = await _unitOfWork._hotelRepo.GetByIdAsync(id);
             if (hotel == null) return false;
 
-            await _unitOfWork._hotelRepo.RemoveAsync(hotel);
+            await _unitOfWork._hotelRepo.UpdateAsync(hotel);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
     }

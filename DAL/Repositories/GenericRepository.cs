@@ -7,6 +7,7 @@ namespace DAL.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private DbSet<T> _dbset;
+        protected readonly ApplicationDbContext _context;
         public GenericRepository(ApplicationDbContext context)
         {
             _dbset = context.Set<T>();
@@ -30,14 +31,13 @@ namespace DAL.Repositories
 
         public async Task RemoveAsync(T entity)
         {
-            entity.updated_at = DateTime.UtcNow;
             _dbset.Remove(entity);
         }
 
         public async Task UpdateAsync(T entity)
         {
-            entity.updated_at = DateTime.UtcNow;
-            _dbset.Update(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

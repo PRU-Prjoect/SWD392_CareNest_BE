@@ -101,7 +101,7 @@ namespace BLL.Services
                 await _cloudinaryService.DeleteImage(entity.img_url);
             }
 
-            await _unitOfWork._imageGalleryRepo.RemoveAsync(entity);
+            await _unitOfWork._imageGalleryRepo.UpdateAsync(entity);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
     }

@@ -215,7 +215,7 @@ namespace BLL.Services
             {
                 return false;
             }
-            await _unitOfWork._accountRepo.RemoveAsync(account);
+            await _unitOfWork._accountRepo.UpdateAsync(account);
             await _unitOfWork.SaveChangeAsync();
             return true;
         }
