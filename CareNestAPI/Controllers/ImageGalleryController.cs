@@ -63,7 +63,7 @@ namespace CareNestAPI.Controllers
         {
             var success = await _imageGalleryService.DeleteAsync(id);
             if (!success) return NotFound();
-            return NoContent();
+            return Ok("Delete Successfully");
         }
     }
 }

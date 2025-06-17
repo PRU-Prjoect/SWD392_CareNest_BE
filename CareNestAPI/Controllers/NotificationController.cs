@@ -110,7 +110,7 @@ namespace CareNestAPI.Controllers
                 if (!success)
                     return NotFound();
 
-                return NoContent();
+                return Ok("Delete Successfully");
             }
             catch (Exception ex)
             {

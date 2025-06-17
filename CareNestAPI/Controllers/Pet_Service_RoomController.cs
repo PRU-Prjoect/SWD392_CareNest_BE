@@ -79,7 +79,7 @@ namespace CareNestAPI.Controllers
             var success = await _pet_Service_RoomService.UpdateAsync(petServiceRoomRequest);
             if (!success) return NotFound("Pet service room not found or update failed.");
 
-            return NoContent();
+            return Ok("Update Successfully");
         }
 
         // DELETE: api/pet_service_room/{id}

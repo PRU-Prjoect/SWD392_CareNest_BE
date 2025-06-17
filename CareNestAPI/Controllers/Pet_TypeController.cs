@@ -94,7 +94,7 @@ namespace CareNestAPI.Controllers
                 {
                     return NotFound(); // 404 Not Found
                 }
-                return Ok(); // 204 No Content
+                return Ok("Update Successfully"); // 204 No Content
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace CareNestAPI.Controllers
                 {
                     return NotFound(); // 404 Not Found
                 }
-                return Ok(); // 204 No Content
+                return Ok("Delete Successfully"); // 204 No Content
             }
             catch (Exception ex)
             {
