@@ -100,6 +100,7 @@ namespace BLL.Services
             check.updated_at = DateTime.UtcNow;
             check.purchases = serviceDto.purchases;
             check.Price = serviceDto.Price;
+            check.is_active = serviceDto.is_active;
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
