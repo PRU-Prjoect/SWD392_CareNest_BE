@@ -1,6 +1,7 @@
 ﻿using BLL.Interfaces;
 using BOL.DTOs;
 using DAL;
+using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -79,9 +80,9 @@ namespace CareNestAPI.Controllers
         }
 
         // PUT: api/hotel/{id}
-        [HttpPut]
+        [HttpPut("update/{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateHotel([FromBody] HotelDTO hotelDto)
+        public async Task<IActionResult> UpdateHotel([FromBody] HotelDTO hotelDto, [FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +91,7 @@ namespace CareNestAPI.Controllers
 
             try
             {
-                var result = await _hotelService.UpdateAsync(hotelDto);
+                var result = await _hotelService.UpdateAsync(hotelDto, id);
                 if (!result)
                 {
                     return BadRequest("Unable to update hotel.");
@@ -120,6 +121,24 @@ namespace CareNestAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error deleting hotel: {ex.Message}");
+            }
+        }
+        [HttpGet("{shopId}/report")]
+        //[Authorize]
+        public async Task<IActionResult> GetShopReport([FromRoute]Guid shopId)
+        {
+            try
+            {
+                var result = await _hotelService.GetHotelReport(shopId);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error retrieving data: {ex.Message}");
             }
         }
     }

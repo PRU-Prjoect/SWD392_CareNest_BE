@@ -4,8 +4,8 @@ namespace BOL.DTOs
 {
     public class Sub_AddressDTO
     {
-        [Required]
-        public Guid id { get; set; } 
+        //[Required]
+        //public Guid id { get; set; }
         public string name { get; set; }
         public Guid shop_id { get; set; }
         public int? phone { get; set; }

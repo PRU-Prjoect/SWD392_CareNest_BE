@@ -7,10 +7,10 @@
         public int? Cancel { get; set; }
         public int? InProgress { get; set; }
         public int? NoProgress { get; set; }
-        public int? FinishPercent { get; set; }
-        public int? CancelPercent { get; set; }
-        public int? InProgressPercent { get; set; }
-        public int? NoProgressPercent { get; set; }
+        public float? FinishPercent { get; set; }
+        public float? CancelPercent { get; set; }
+        public float? InProgressPercent { get; set; }
+        public float? NoProgressPercent { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BOL;
 using BOL.DTOs;
 using DAL.Models;
 
@@ -28,6 +29,7 @@ namespace BLL.Mapper
             CreateMap<Customer, CustomerResponse>().ReverseMap();
 
             CreateMap<Sub_Address, Sub_AddressDTO>().ReverseMap();
+            CreateMap<Sub_Address, Sub_AddressResponse>().ReverseMap();
 
             CreateMap<Service, ServiceDTO>().ReverseMap();
 
@@ -40,6 +42,7 @@ namespace BLL.Mapper
             CreateMap<Room, RoomDTO>().ReverseMap();
 
             CreateMap<Hotel, HotelDTO>().ReverseMap();
+            CreateMap<Hotel, HotelResponse>().ReverseMap();
 
             CreateMap<Pet_Service_Room, Pet_Service_RoomRequest>().ReverseMap();
             CreateMap<Pet_Service_Room, Pet_Service_RoomResponse>().ReverseMap();

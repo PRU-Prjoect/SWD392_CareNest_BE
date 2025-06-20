@@ -55,11 +55,11 @@ namespace CareNestAPI.Controllers
         }
 
         // PUT: api/Sub_Address
-        [HttpPut]
+        [HttpPut("update/{id}")]
         [Authorize]
-        public async Task<IActionResult> Update([FromBody] Sub_AddressDTO subAddressDto)
+        public async Task<IActionResult> Update([FromBody] Sub_AddressDTO subAddressDto, Guid id)
         {
-            var success = await _sub_AddressService.UpdateAsync(subAddressDto);
+            var success = await _sub_AddressService.UpdateAsync(subAddressDto, id);
             if (!success) return NotFound("Sub-address not found or update failed.");
             return Ok("Sub-address updated successfully.");
         }

@@ -1,10 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BOL.DTOs
 {
-    public class HotelDTO
+    public class HotelResponse
     {
-        //public Guid id { get; set; }
+        public Guid id { get; set; }
         public string name { get; set; }
         public string? description { get; set; }
         public int total_room { get; set; }

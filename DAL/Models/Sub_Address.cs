@@ -16,7 +16,7 @@ namespace DAL.Models
         public string address_name { get; set; }
         public bool is_default { get; set; }
 
-
+        public Hotel hotel { get; set; }
         public Shop shop { get; set; }
     }
 }

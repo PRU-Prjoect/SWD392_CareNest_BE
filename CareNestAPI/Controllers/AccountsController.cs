@@ -202,7 +202,7 @@ namespace CareNestAPI.Controllers
         }
 
         [HttpGet("get-all")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAllAccount()
         {
             try

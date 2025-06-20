@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
+using BOL;
 using BOL.DTOs;
 using DAL.Interfaces;
 using DAL.Models;
@@ -17,7 +18,7 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Sub_AddressDTO>> GetAllAsync(Guid? shopId = null, string? addressName = null, bool? isDefault = null)
+        public async Task<List<Sub_AddressResponse>> GetAllAsync(Guid? shopId = null, string? addressName = null, bool? isDefault = null)
         {
             var subAddresses = await _unitOfWork._sub_AddressRepo.GetAllAsync();
 
@@ -25,7 +26,7 @@ namespace BLL.Services
             if (shopId.HasValue)
             {
                 subAddresses = subAddresses.Where(sa => sa.shop_id == shopId.Value).ToList();
-            }
+            }   
 
             // Lọc theo addressName nếu có
             if (!string.IsNullOrEmpty(addressName))
@@ -39,14 +40,14 @@ namespace BLL.Services
                 subAddresses = subAddresses.Where(sa => sa.is_default == isDefault.Value).ToList();
             }
 
-            return _mapper.Map<List<Sub_AddressDTO>>(subAddresses);
+            return _mapper.Map<List<Sub_AddressResponse>>(subAddresses);
 
         }
 
-        public async Task<Sub_AddressDTO> GetByIdAsync(Guid id)
+        public async Task<Sub_AddressResponse> GetByIdAsync(Guid id)
         {
             var subAddress = await _unitOfWork._sub_AddressRepo.GetByIdAsync(id);
-            return _mapper.Map<Sub_AddressDTO>(subAddress);
+            return _mapper.Map<Sub_AddressResponse>(subAddress);
         }
 
         public async Task<bool> CreateAsync(Sub_AddressDTO subAddressDto)
@@ -57,9 +58,9 @@ namespace BLL.Services
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
-        public async Task<bool> UpdateAsync(Sub_AddressDTO subAddressDto)
+        public async Task<bool> UpdateAsync(Sub_AddressDTO subAddressDto, Guid id)
         {
-            var check = await _unitOfWork._sub_AddressRepo.GetByIdAsync(subAddressDto.id)
+            var check = await _unitOfWork._sub_AddressRepo.GetByIdAsync(id)
                 ?? throw new Exception();
 
             check.phone = subAddressDto.phone;
