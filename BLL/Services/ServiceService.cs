@@ -100,6 +100,7 @@ namespace BLL.Services
             check.updated_at = DateTime.UtcNow;
             check.purchases = serviceDto.purchases;
             check.Price = serviceDto.Price;
+            check.is_active = serviceDto.is_active;
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
@@ -147,7 +148,7 @@ namespace BLL.Services
             if (service == null) return false;
 
             // Cập nhật số sao trung bình
-            service.Star = newRating; // Tổng số sao hiện tại
+            service.Star = (newRating+service.Star)/2;
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
@@ -162,7 +163,7 @@ namespace BLL.Services
             int appointmentCount = await _unitOfWork._serviceRepo.GetAppointmentCountByServiceIdAsync(serviceId);
 
             // Cập nhật số lượng cuộc hẹn
-            service.purchases = appointmentCount;
+            service.purchases = appointmentCount+1;
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
