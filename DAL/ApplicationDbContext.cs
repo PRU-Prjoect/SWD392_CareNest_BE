@@ -29,6 +29,8 @@ namespace DAL
         public DbSet<Service> Service { get; set; }
         public DbSet<Service_Appointment> Service_Appointment { get; set; }
         public DbSet<Service_Type> Service_Type { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<Service_Cart> Service_Cart { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
