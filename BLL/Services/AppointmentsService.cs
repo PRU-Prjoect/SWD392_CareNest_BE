@@ -67,8 +67,6 @@ namespace BLL.Services
                 ?? throw new Exception();
             existingAppointment.customer_id = appointmentDto.customer_id;
             existingAppointment.start_time = appointmentDto.start_time;
-            existingAppointment.end_time = appointmentDto.end_time;
-            existingAppointment.location_type = appointmentDto.location_type;
             existingAppointment.status = appointmentDto.status;
             existingAppointment.notes = appointmentDto.notes;
             return await _unitOfWork.SaveChangeAsync() > 0;

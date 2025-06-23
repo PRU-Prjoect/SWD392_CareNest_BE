@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250623044746_changeField")]
+    partial class changeField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,7 +149,7 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("available_room")
+                    b.Property<int?>("available_room")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("created_at")
@@ -159,16 +162,15 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("shop_id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("sub_address_id")
+                    b.Property<Guid?>("sub_address_id")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("total_room")
+                    b.Property<int?>("total_room")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("updated_at")
@@ -178,8 +180,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("shop_id");
 
-                    b.HasIndex("sub_address_id")
-                        .IsUnique();
+                    b.HasIndex("sub_address_id");
 
                     b.ToTable("Hotel");
                 });
@@ -667,10 +668,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Sub_Address", "sub_address")
-                        .WithOne("hotel")
-                        .HasForeignKey("DAL.Models.Hotel", "sub_address_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("sub_address_id");
 
                     b.Navigation("shop");
 
@@ -907,12 +906,6 @@ namespace DAL.Migrations
                     b.Navigation("staff");
 
                     b.Navigation("sub_address");
-                });
-
-            modelBuilder.Entity("DAL.Models.Sub_Address", b =>
-                {
-                    b.Navigation("hotel")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
