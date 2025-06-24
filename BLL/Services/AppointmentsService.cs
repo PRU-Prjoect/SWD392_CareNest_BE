@@ -53,13 +53,19 @@ namespace BLL.Services
             return _mapper.Map<AppointmentsDTO>(appointment);
         }
 
-        public async Task<bool> CreateAsync(AppointmentsDTO appointmentDto)
+        public async Task<AppointmentsDTO?> CreateAsync(AppointmentsDTO appointmentDto)
         {
-            appointmentDto.id = Guid.NewGuid(); // Tạo ID mới cho cuộc hẹn
+            appointmentDto.id = Guid.NewGuid();
             var appointment = _mapper.Map<Appointments>(appointmentDto);
+
             await _unitOfWork._appointmentsRepo.AddAsync(appointment);
-            return await _unitOfWork.SaveChangeAsync() > 0;
+            var success = await _unitOfWork.SaveChangeAsync() > 0;
+
+            if (!success) return null;
+
+            return await GetByIdAsync(appointmentDto.id);
         }
+
 
         public async Task<bool> UpdateAsync(AppointmentsDTO appointmentDto)
         {

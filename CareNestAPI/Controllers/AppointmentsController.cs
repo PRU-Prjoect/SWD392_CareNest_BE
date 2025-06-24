@@ -59,12 +59,18 @@ namespace CareNestAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AppointmentsDTO appointmentDto)
         {
-            if (appointmentDto == null) return BadRequest("Invalid appointment data.");
+            if (appointmentDto == null)
+                return BadRequest("Invalid appointment data.");
 
-            var success = await _appointmentsService.CreateAsync(appointmentDto);
-            if (!success) return BadRequest("Failed to create appointment.");
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            return Ok("Appointment created successfully.");
+            var result = await _appointmentsService.CreateAsync(appointmentDto);
+
+            if (result == null)
+                return BadRequest("Failed to create appointment.");
+
+            return CreatedAtAction(nameof(GetById), new { id = result.id }, result);
         }
 
         // PUT: api/appointments
