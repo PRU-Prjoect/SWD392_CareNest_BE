@@ -10,7 +10,7 @@ namespace BLL.Interfaces
             AppointmentStatus? status = null,
             DateTime? startTime = null);
         Task<AppointmentsDTO> GetByIdAsync(Guid id);
-        Task<bool> CreateAsync(AppointmentsDTO appointmentDto);
+        Task<AppointmentsDTO?> CreateAsync(AppointmentsDTO appointmentDto);
         Task<bool> UpdateAsync(AppointmentsDTO appointmentDto);
         Task<bool> DeleteAsync(Guid id);
         Task<AppointmentReportResponse> GetAppointmentreport();
