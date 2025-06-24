@@ -29,6 +29,8 @@ namespace DAL.Models
         public Service_Type service_type { get; set; }
         public IEnumerable<Service_Appointment>? service_appointment { get; set; }
         public IEnumerable<Pet_Service_Room>? room { get; set; }
+        public IEnumerable<Service_Cart>? service_Carts { get; set; }
+
         //public IEnumerable<ImageGallery> image_gallery { get; set; }
     }
 }

@@ -22,6 +22,8 @@ namespace DAL.Repositories
         private readonly IRoom_BookingRepository _room_BookingRepository;
         private readonly INotificationRepository _notificationRepository;
         private readonly IImageGalleryRepository _imageGalleryRepository;
+        private readonly ICartRepository _cartRepository;
+        private readonly IService_CartRepository _serviceCartRepository;
 
         public UnitOfWork(ApplicationDbContext Context,
             IAccountRepository AccountRepository,
@@ -40,7 +42,9 @@ namespace DAL.Repositories
             IPet_Service_RoomRepository pet_Service_RoomRepository,
             IRoom_BookingRepository room_BookingRepository,
             INotificationRepository notificationRepository,
-            IImageGalleryRepository imageGalleryRepository)
+            IImageGalleryRepository imageGalleryRepository,
+            ICartRepository cartRepository,
+            IService_CartRepository serviceCartRepository)
         {
             _context = Context;
             _accountRepository = AccountRepository;
@@ -60,6 +64,8 @@ namespace DAL.Repositories
             _room_BookingRepository = room_BookingRepository;
             _notificationRepository = notificationRepository;
             _imageGalleryRepository = imageGalleryRepository;
+            _cartRepository = cartRepository;
+            _serviceCartRepository = serviceCartRepository;
         }
 
         public IAccountRepository _accountRepo => _accountRepository;
@@ -79,6 +85,8 @@ namespace DAL.Repositories
         public IRoom_BookingRepository _room_BookingRepo => _room_BookingRepository;
         public INotificationRepository _notificationRepo => _notificationRepository;
         public IImageGalleryRepository _imageGalleryRepo => _imageGalleryRepository;
+        public ICartRepository _cartRepo => _cartRepository;
+        public IService_CartRepository _serviceCartRepo => _serviceCartRepository;
 
         public async Task<int> SaveChangeAsync()
         {

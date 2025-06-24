@@ -31,6 +31,8 @@ namespace CareNestAPI
             services.AddScoped(typeof(IRoom_BookingRepository), typeof(Room_BookingRepository));
             services.AddScoped(typeof(INotificationRepository), typeof(NotificationRepository));
             services.AddScoped(typeof(IImageGalleryRepository), typeof(ImageGalleryRepository));
+            services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
+            services.AddScoped(typeof(IService_CartRepository), typeof(Service_CartRepository));
 
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
             services.AddScoped(typeof(ITokenService), typeof(TokenService));
@@ -53,6 +55,7 @@ namespace CareNestAPI
             services.AddScoped(typeof(IImageGalleryService), typeof(ImageGalleryService));
             services.AddScoped(typeof(ICloudinaryService), typeof(CloudinaryService));
             services.AddScoped(typeof(ICloudinaryService), typeof(CloudinaryService));
+            services.AddScoped(typeof(ICartService), typeof(CartService));
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             services.Configure<CloudinaryConfig>(configuration.GetSection("Cloudinary"));

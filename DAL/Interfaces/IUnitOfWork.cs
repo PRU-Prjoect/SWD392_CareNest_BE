@@ -19,6 +19,8 @@
         public IRoom_BookingRepository _room_BookingRepo { get; }
         public INotificationRepository _notificationRepo { get; }
         public IImageGalleryRepository _imageGalleryRepo { get; }
+        public ICartRepository _cartRepo { get; }
+        public IService_CartRepository _serviceCartRepo { get; }
         public Task<int> SaveChangeAsync();
     }
 }
