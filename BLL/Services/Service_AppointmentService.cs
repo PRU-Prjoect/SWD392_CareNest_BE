@@ -48,6 +48,7 @@ namespace BLL.Services
         {
             
             var entity = _mapper.Map<Service_Appointment>(dto);
+            entity.id = Guid.NewGuid(); // Ensure a new ID is generated
             await _unitOfWork._service_AppointmentRepo.AddAsync(entity);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
