@@ -46,7 +46,6 @@ namespace BLL.Services
 
         public async Task<bool> CreateAsync(Service_AppointmentDTO dto)
         {
-            
             var entity = _mapper.Map<Service_Appointment>(dto);
             entity.id = Guid.NewGuid(); // Ensure a new ID is generated
             await _unitOfWork._service_AppointmentRepo.AddAsync(entity);
@@ -55,11 +54,14 @@ namespace BLL.Services
 
         public async Task<bool> UpdateAsync(Service_AppointmentDTO dto)
         {
-            var entity = await _unitOfWork._service_AppointmentRepo.GetByIdAsync(dto.service_id)
+            var entity = await _unitOfWork._service_AppointmentRepo.GetByIdAsync(dto.id)
                 ?? throw new Exception();
 
             entity.updated_at = DateTime.UtcNow;
             entity.rating_id = dto.rating_id;
+            entity.service_id = dto.service_id;
+            entity.appointment_id = dto.appointment_id;
+
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
