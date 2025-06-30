@@ -25,13 +25,14 @@ namespace CareNestAPI.Controllers
             string name = null,
             bool? isActive = null,
             int? estimatedTime = null,
+            Guid? shopId = null,
             Guid? serviceTypeId = null,
             string sortBy = "createdAt") // Tham số sắp xếp
         {
             try
             {
                 var services = await _serviceService.GetAllAsync(
-                    name, isActive, estimatedTime, serviceTypeId, sortBy);
+                    name, isActive, estimatedTime, serviceTypeId, shopId, sortBy);
 
                 return Ok(services);
             }

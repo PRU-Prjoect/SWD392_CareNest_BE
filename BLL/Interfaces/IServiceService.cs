@@ -9,6 +9,7 @@ namespace BLL.Interfaces
             bool? isActive = null,
             int? estimatedTime = null,
             Guid? serviceTypeId = null,
+            Guid? shopId = null,
             string sortBy = "createdAt");
         Task<ServiceDTO> GetByIdAsync(Guid id);
         Task<bool> CreateAsync(ServiceDTO serviceDto);

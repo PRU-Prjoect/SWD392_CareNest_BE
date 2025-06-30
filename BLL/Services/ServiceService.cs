@@ -22,6 +22,7 @@ namespace BLL.Services
             bool? isActive = null,
             int? estimatedTime = null,
             Guid? serviceTypeId = null,
+            Guid? shopId = null,
             string sortBy = "createdAt") // Tham số sắp xếp
         {
             var services = await _unitOfWork._serviceRepo.GetAllAsync();
@@ -48,6 +49,12 @@ namespace BLL.Services
             if (serviceTypeId.HasValue)
             {
                 services = services.Where(s => s.service_type_id == serviceTypeId.Value).ToList();
+            }
+
+            // Lọc theo shopId nếu có
+            if (shopId.HasValue)
+            {
+                services = services.Where(s => s.shop_id == shopId.Value).ToList();
             }
 
             // Sắp xếp
@@ -95,7 +102,7 @@ namespace BLL.Services
                 ?? throw new Exception();
 
             check.limit_per_hour = serviceDto.limit_per_hour;
-            check.name = serviceDto.name;   
+            check.name = serviceDto.name;
             check.description = serviceDto.description;
             check.updated_at = DateTime.UtcNow;
             check.purchases = serviceDto.purchases;
@@ -148,7 +155,7 @@ namespace BLL.Services
             if (service == null) return false;
 
             // Cập nhật số sao trung bình
-            service.Star = (newRating+service.Star)/2;
+            service.Star = (newRating + service.Star) / 2;
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
@@ -163,7 +170,7 @@ namespace BLL.Services
             int appointmentCount = await _unitOfWork._serviceRepo.GetAppointmentCountByServiceIdAsync(serviceId);
 
             // Cập nhật số lượng cuộc hẹn
-            service.purchases = appointmentCount+1;
+            service.purchases = appointmentCount + 1;
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
