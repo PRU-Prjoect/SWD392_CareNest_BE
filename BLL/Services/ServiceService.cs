@@ -108,6 +108,7 @@ namespace BLL.Services
             check.purchases = serviceDto.purchases;
             check.Price = serviceDto.Price;
             check.is_active = serviceDto.is_active;
+            check.service_type_id = serviceDto.service_type_id;
 
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
