@@ -10,6 +10,8 @@ namespace DAL.Models
         public Guid account_id { get; set; }
         public string? name { get; set; }
         public string? description { get; set; }
+        [Column("Phone")]
+        public string? phone { get; set; }
         public bool status { get; set; }
         public List<string>? working_day { get; set; }
 
