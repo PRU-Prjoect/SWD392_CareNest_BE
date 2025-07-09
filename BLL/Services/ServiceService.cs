@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BOL.DTOs;
+using CloudinaryDotNet;
 using DAL.Interfaces;
 using DAL.Models;
 
@@ -10,14 +11,16 @@ namespace BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ICloudinaryService _cloudinaryService;
 
-        public ServiceService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ServiceService(IUnitOfWork unitOfWork, IMapper mapper, ICloudinaryService cloudinaryService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _cloudinaryService = cloudinaryService;
         }
 
-        public async Task<List<ServiceDTO>> GetAllAsync(
+        public async Task<List<ServiceResponse>> GetAllAsync(
             string name = null,
             bool? isActive = null,
             int? estimatedTime = null,
@@ -79,8 +82,10 @@ namespace BLL.Services
                     services = services.OrderByDescending(s => s.created_at).ToList(); // Sắp xếp mặc định
                     break;
             }
+            List<ServiceResponse> serviceResponse = new List<ServiceResponse>();
+            serviceResponse = _mapper.Map<List<ServiceResponse>>(services);
 
-            return _mapper.Map<List<ServiceDTO>>(services);
+            return serviceResponse;
         }
 
         public async Task<ServiceDTO> GetByIdAsync(Guid id)
@@ -92,6 +97,12 @@ namespace BLL.Services
         public async Task<bool> CreateAsync(ServiceDTO serviceDto)
         {
             var service = _mapper.Map<Service>(serviceDto);
+            if (serviceDto.img != null)
+            {
+                CloudinaryDTO cloudinaryDTO = await _cloudinaryService.UploadImage(serviceDto.img);
+                service.img_url = cloudinaryDTO.url;
+                service.img_url_id = cloudinaryDTO.publicId;
+            }
             await _unitOfWork._serviceRepo.AddAsync(service);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }

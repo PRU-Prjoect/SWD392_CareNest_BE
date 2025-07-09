@@ -55,7 +55,7 @@ namespace CareNestAPI.Controllers
         // POST: api/Service
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create([FromBody] ServiceDTO serviceDto)
+        public async Task<IActionResult> Create([FromForm] ServiceDTO serviceDto)
         {
             var success = await _serviceService.CreateAsync(serviceDto);
             if (!success) return BadRequest("Failed to create service.");

@@ -4,7 +4,7 @@ namespace BLL.Interfaces
 {
     public interface IServiceService
     {
-        Task<List<ServiceDTO>> GetAllAsync(
+        Task<List<ServiceResponse>> GetAllAsync(
             string name = null,
             bool? isActive = null,
             int? estimatedTime = null,

@@ -32,6 +32,7 @@ namespace BLL.Mapper
             CreateMap<Sub_Address, Sub_AddressResponse>().ReverseMap();
 
             CreateMap<Service, ServiceDTO>().ReverseMap();
+            CreateMap<Service, ServiceResponse>().ReverseMap();
 
             CreateMap<Appointments, AppointmentsDTO>().ReverseMap();
 

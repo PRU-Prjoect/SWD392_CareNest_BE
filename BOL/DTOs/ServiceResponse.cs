@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BOL.DTOs
 {
-    public class ServiceDTO
+    public class ServiceResponse
     {
         public Guid id { get; set; } = Guid.NewGuid();
         public string name { get; set; }
@@ -21,7 +26,7 @@ namespace BOL.DTOs
         public int purchases { get; set; }
         [ForeignKey("service_type")]
         public Guid service_type_id { get; set; }
-        public IFormFile? img { get; set; }
-
+        public string? img_url { get; set; }
+        public string? img_url_id { get; set; }
     }
 }

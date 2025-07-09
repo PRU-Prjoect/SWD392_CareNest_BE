@@ -22,6 +22,8 @@ namespace DAL.Models
         public int purchases { get; set; }
         [ForeignKey("service_type")]
         public Guid service_type_id { get; set; }
+        public string? img_url { get; set; }
+        public string? img_url_id { get; set; }
 
 
         public Shop shop { get; set; }
