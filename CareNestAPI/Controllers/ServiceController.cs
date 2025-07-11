@@ -65,7 +65,7 @@ namespace CareNestAPI.Controllers
         // PUT: api/Service
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> Update([FromBody] ServiceDTO serviceDto)
+        public async Task<IActionResult> Update([FromForm] ServiceDTO serviceDto)
         {
             var success = await _serviceService.UpdateAsync(serviceDto);
             if (!success) return NotFound("Service not found or update failed.");

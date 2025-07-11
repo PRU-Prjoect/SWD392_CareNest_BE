@@ -120,7 +120,20 @@ namespace BLL.Services
             check.Price = serviceDto.Price;
             check.is_active = serviceDto.is_active;
             check.service_type_id = serviceDto.service_type_id;
-
+ // Xử lý cập nhật hình ảnh
+    if (serviceDto.img != null)
+    {
+        // Nếu đã có ảnh cũ, xóa ảnh cũ trước
+        if (!string.IsNullOrEmpty(service.img_url_id))
+        {
+            await _cloudinaryService.DeleteImage(service.img_url_id);
+        }
+        
+        // Upload ảnh mới
+        CloudinaryDTO cloudinaryDTO = await _cloudinaryService.UploadImage(serviceDto.img);
+        service.img_url = cloudinaryDTO.url;
+        service.img_url_id = cloudinaryDTO.publicId;
+    }
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
 
