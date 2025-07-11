@@ -97,6 +97,8 @@ namespace BLL.Services
         public async Task<bool> CreateAsync(ServiceDTO serviceDto)
         {
             var service = _mapper.Map<Service>(serviceDto);
+             service.id = Guid.NewGuid();
+
             if (serviceDto.img != null)
             {
                 CloudinaryDTO cloudinaryDTO = await _cloudinaryService.UploadImage(serviceDto.img);
