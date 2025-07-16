@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250709083401_service-image")]
-    partial class serviceimage
+    [Migration("20250716121445_newCheck")]
+    partial class newCheck
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -608,10 +608,6 @@ namespace DAL.Migrations
 
                     b.Property<string>("name")
                         .HasColumnType("text");
-
-                    b.Property<string>("phone")
-                        .HasColumnType("text")
-                        .HasColumnName("Phone");
 
                     b.Property<bool>("status")
                         .HasColumnType("boolean");

@@ -81,7 +81,7 @@ namespace DAL.Migrations
                     b.HasIndex("username")
                         .IsUnique();
 
-                    b.ToTable("Account");
+                    b.ToTable("Account", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Appointments", b =>
@@ -112,7 +112,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("customer_id");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Cart", b =>
@@ -138,7 +138,7 @@ namespace DAL.Migrations
                     b.HasIndex("customer_id")
                         .IsUnique();
 
-                    b.ToTable("Cart");
+                    b.ToTable("Cart", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Customer", b =>
@@ -163,7 +163,7 @@ namespace DAL.Migrations
 
                     b.HasKey("account_id");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customer", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Hotel", b =>
@@ -207,7 +207,7 @@ namespace DAL.Migrations
                     b.HasIndex("sub_address_id")
                         .IsUnique();
 
-                    b.ToTable("Hotel");
+                    b.ToTable("Hotel", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.ImageGallery", b =>
@@ -233,7 +233,7 @@ namespace DAL.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("ImageGallery");
+                    b.ToTable("ImageGallery", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Notification", b =>
@@ -261,7 +261,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("receiver_id");
 
-                    b.ToTable("Notification");
+                    b.ToTable("Notification", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Pet_Service_Room", b =>
@@ -299,7 +299,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("service_id");
 
-                    b.ToTable("Pet_Service_Room");
+                    b.ToTable("Pet_Service_Room", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Pet_Type", b =>
@@ -319,7 +319,7 @@ namespace DAL.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Pet_Type");
+                    b.ToTable("Pet_Type", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Rating", b =>
@@ -347,7 +347,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("customer_id");
 
-                    b.ToTable("Rating");
+                    b.ToTable("Rating", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Room", b =>
@@ -390,7 +390,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("hotel_id");
 
-                    b.ToTable("Room");
+                    b.ToTable("Room", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Room_Booking", b =>
@@ -438,7 +438,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("room_detail_id");
 
-                    b.ToTable("Room_Booking");
+                    b.ToTable("Room_Booking", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Service", b =>
@@ -500,7 +500,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("shop_id");
 
-                    b.ToTable("Service");
+                    b.ToTable("Service", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Service_Appointment", b =>
@@ -533,7 +533,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("service_id");
 
-                    b.ToTable("Service_Appointment");
+                    b.ToTable("Service_Appointment", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Service_Cart", b =>
@@ -560,7 +560,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("service_id");
 
-                    b.ToTable("Service_Cart");
+                    b.ToTable("Service_Cart", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Service_Type", b =>
@@ -589,7 +589,7 @@ namespace DAL.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Service_Type");
+                    b.ToTable("Service_Type", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Shop", b =>
@@ -606,10 +606,6 @@ namespace DAL.Migrations
                     b.Property<string>("name")
                         .HasColumnType("text");
 
-                    b.Property<string>("phone")
-                        .HasColumnType("text")
-                        .HasColumnName("Phone");
-
                     b.Property<bool>("status")
                         .HasColumnType("boolean");
 
@@ -621,7 +617,7 @@ namespace DAL.Migrations
 
                     b.HasKey("account_id");
 
-                    b.ToTable("Shop");
+                    b.ToTable("Shop", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Staff", b =>
@@ -660,7 +656,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("shop_id");
 
-                    b.ToTable("Staff");
+                    b.ToTable("Staff", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Sub_Address", b =>
@@ -696,7 +692,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("shop_id");
 
-                    b.ToTable("Sub_Address");
+                    b.ToTable("Sub_Address", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Models.Appointments", b =>
