@@ -77,7 +77,6 @@ namespace BLL.Services
             check.updated_at = DateTime.UtcNow;
             check.description = shopUpdateDto.description;
             check.name = shopUpdateDto.name;
-            check.phone = shopUpdateDto.phone;
             check.status = shopUpdateDto.status;
             check.working_day = shopUpdateDto.working_day;
             return await _unitOfWork.SaveChangeAsync() > 0;
@@ -148,3 +147,4 @@ namespace BLL.Services
         }
     }
 }
+                                    

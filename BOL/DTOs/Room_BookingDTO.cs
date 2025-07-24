@@ -15,6 +15,6 @@ namespace BOL.DTOs
         public int total_amount { get; set; }
         public DateTime feeding_schedule { get; set; }
         public DateTime medication_schedule { get; set; }
-        public bool status { get; set; }
+        public int status { get; set; }
     }
 }

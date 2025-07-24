@@ -22,7 +22,7 @@ namespace BLL.Services
             Guid? customerId = null,
             DateTime? checkInDate = null,
             DateTime? checkOutDate = null,
-            bool? status = null)
+            int? status = null)
         {
             var bookings = await _unitOfWork._room_BookingRepo.GetAllAsync();
 
@@ -85,6 +85,5 @@ namespace BLL.Services
             await _unitOfWork._room_BookingRepo.RemoveAsync(booking);
             return await _unitOfWork.SaveChangeAsync() > 0;
         }
-
     }
 }

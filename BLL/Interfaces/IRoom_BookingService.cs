@@ -9,7 +9,7 @@ namespace BLL.Interfaces
                 Guid? customerId = null,
                 DateTime? checkInDate = null,
                 DateTime? checkOutDate = null,
-                bool? status = null);                                       // Get all room bookings with optional filtering by name
+                int? status = null);                                       // Get all room bookings with optional filtering by name
         Task<Room_BookingDTO> GetByIdAsync(Guid id);                       // Get a room booking by ID
         Task<bool> CreateAsync(Room_BookingDTO roomBookingDTO);            // Create a new room booking
         Task<bool> UpdateAsync(Room_BookingDTO roomBookingDTO);            // Update an existing room booking

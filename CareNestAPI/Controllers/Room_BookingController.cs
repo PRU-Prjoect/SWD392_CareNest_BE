@@ -26,7 +26,7 @@ namespace CareNestAPI.Controllers
             [FromQuery] Guid? customerId,
             [FromQuery] DateTime? checkInDate,
             [FromQuery] DateTime? checkOutDate,
-            [FromQuery] bool? status)
+            [FromQuery] int? status)
         {
             var result = await _room_BookingService.GetAllAsync(roomDetailId, customerId, checkInDate, checkOutDate, status);
             return Ok(result);
