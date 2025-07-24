@@ -12,7 +12,8 @@ namespace DAL.Models
         public string? description { get; set; }
         public bool status { get; set; }
         public List<string>? working_day { get; set; }
-
+        [Column("Phone")]
+        public string? phone { get; set; }
 
         public Account account { get; set; }
         public IEnumerable<Staff>? staff { get; set; }
