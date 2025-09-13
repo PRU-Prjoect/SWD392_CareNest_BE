@@ -1,4 +1,4 @@
-using CareNestAPI;
+﻿using CareNestAPI;
 using DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
+        Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -74,6 +74,11 @@ var app = builder.Build();
 app.UseCors("AllowAllOrigins");
 app.UseSwagger();
 app.UseSwaggerUI();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error"); 
+    app.UseHsts();
+}
 
 
 app.UseHttpsRedirection();
