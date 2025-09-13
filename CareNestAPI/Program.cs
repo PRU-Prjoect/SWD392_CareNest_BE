@@ -80,6 +80,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; script-src 'self' https://pru-prjoect.github.io/SWD392_CareNest_BE/");
+    await next();
+});
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
